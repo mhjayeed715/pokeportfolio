@@ -4,11 +4,13 @@ import About from './components/About'
 import Services from './components/Services'
 import Skills from './components/Skills'
 import Projects from './components/Projects'
+import Achievements from './components/Achievements'
 import Philosophy from './components/Philosophy'
 import Education from './components/Education'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
+
 export default function App() {
   return (
     <div className="bg-background text-foreground min-h-screen">
@@ -19,6 +21,7 @@ export default function App() {
         <Services />
         <Skills />
         <Projects />
+        <Achievements />
         <Philosophy />
         <Education />
         <Contact />

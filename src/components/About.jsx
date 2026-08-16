@@ -48,7 +48,7 @@ export default function About() {
               {/* Metrics */}
               <div className="grid grid-cols-2 gap-4">
                 {[
-                  { value: '5+', label: 'Projects Shipped' },
+                  { value: '8+', label: 'Projects Shipped' },
                   { value: '20+', label: 'Tech Skills' },
                 ].map((m) => (
                   <div key={m.label} className="p-4 rounded-xl border border-border bg-card text-center">

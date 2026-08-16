@@ -86,7 +86,7 @@ function FloatingParticle({ delay, x, y, size, duration }) {
 }
 
 const heroStats = [
-  { value: 5, suffix: '+', label: 'Projects' },
+  { value: 8, suffix: '+', label: 'Projects' },
   { value: 20, suffix: '+', label: 'Technologies' },
   { value: 3, suffix: '+', label: 'Years Coding' },
 ]
@@ -288,7 +288,7 @@ export default function Hero() {
                 Hire Me
               </motion.a>
               <motion.a
-                href="/resume.pdf"
+                href="/SM_Mehrab_Hossain_Jayeed_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}

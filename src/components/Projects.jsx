@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Globe, ExternalLink } from 'lucide-react'
+import { ExternalLink, Trophy } from 'lucide-react'
 
 const GitHubIcon = ({ className }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -10,28 +10,47 @@ const GitHubIcon = ({ className }) => (
 
 const projects = [
   {
-    title: 'UniShareSync',
-    subtitle: 'University Resource Sharing Platform',
+    title: 'UniShareSync Mobile App',
+    subtitle: 'Centralized University Collaboration & Campus Management',
+    award: '2nd Place — Software Project Showcase 2026 (Inter-Department)',
     description:
-      'Full-stack platform enabling university students, faculty, and admins to share academic resources, collaborate on projects, manage events, and communicate via real-time notifications with secure email OTP login and role-based access control.',
-    highlights: ['Email OTP Auth', 'RBAC', 'Real-time Notifications', 'RESTful API'],
-    image: '/projects/unisharesync.png',
+      'Cross-platform mobile application centralizing university academic workflows, student collaboration, and campus management into a unified ecosystem. Built with Flutter and Supabase, featuring an AI Campus Assistant with Groq RAG document querying, real-time collaborative whiteboards & Kanban boards with multi-user presence, campus bus transit tracking via OpenStreetMap, CampusShare peer-to-peer item sharing with digital agreements, and QR event check-ins.',
+    highlights: ['Flutter & Supabase', 'AI Campus Assistant (RAG)', 'Real-time Whiteboard & Kanban', 'FCM Push Notifications', 'CampusShare P2P'],
+    image: '/projects/unisharesync_mobile.png',
+    tech: [
+      { name: 'Flutter', icon: '/icons/flutter-original.svg' },
+      { name: 'Dart', icon: '/icons/dart-original.svg' },
+      { name: 'Supabase', icon: '/icons/supabase-original.svg' },
+      { name: 'Postman', icon: '/icons/postman-original.svg' },
+    ],
+    github: 'https://github.com/mhjayeed715/UniShareSync-Mobile-App',
+    live: 'https://unisharesync.vercel.app/',
+    featured: true,
+  },
+  {
+    title: 'Focusnyx',
+    subtitle: 'The Ultimate Student Life OS & Cognitive Shield',
+    description:
+      'Full-stack productivity operating system and digital cognitive shield tailored for university students and neurodivergent learners. Integrates a Next.js 14 web app, Chrome Manifest V3 extension for browser distraction blocking, and a Python Win32 companion for system-level shortcut/window focus enforcement. Includes ADHD & Standard interaction modes, Smart Academic Forge CGPA momentum calculator, AI Behavioral Coach, and bilingual voice notes.',
+    highlights: ['Next.js 14 & Supabase', 'Chrome MV3 Extension', 'Win32 System Hooks', 'ADHD & Standard Modes', 'AI Behavioral Coach'],
+    image: '/projects/focusnyx.png',
     tech: [
       { name: 'React', icon: '/icons/react-original.svg' },
+      { name: 'TypeScript', icon: '/icons/typescript-original.svg' },
       { name: 'Node.js', icon: '/icons/nodejs-original.svg' },
-      { name: 'PostgreSQL', icon: '/icons/postgresql-original.svg' },
-      { name: 'Tailwind CSS', icon: '/icons/tailwindcss-original.svg' },
+      { name: 'Supabase', icon: '/icons/supabase-original.svg' },
+      { name: 'Python', icon: '/icons/python-original.svg' },
     ],
-    github: 'https://github.com/mhjayeed715/UniShareSync',
-    live: 'https://unisharesync.vercel.app/',
+    github: 'https://github.com/mhjayeed715/Focusnyx',
+    live: 'https://focusnyx.vercel.app/',
     featured: true,
   },
   {
     title: 'GigCampus',
     subtitle: 'Campus-only Micro-Gig Marketplace',
     description:
-      'A platform for students to find trustworthy peers for quick, affordable tasks. Includes ID verification, real-time chat, order tracking, and a ghosting detection system.',
-    highlights: ['Real-time Chat', 'Order Tracking', 'Ghosting Detection'],
+      'A peer-to-peer campus task marketplace built as a CS50x final project. Enables university students to find trustworthy peers for quick, affordable tasks. Features university student ID verification, real-time messaging powered by Socket.IO, live order tracking, and an automated ghosting detection system.',
+    highlights: ['CS50x Final Project', 'Real-time Chat', 'Order Tracking', 'Ghosting Detection'],
     image: '/projects/GigCampus.png',
     tech: [
       { name: 'Python', icon: '/icons/python-original.svg' },
@@ -42,8 +61,25 @@ const projects = [
     ],
     github: 'https://github.com/mhjayeed715/GigCampus',
     live: 'https://gigcampus-7er7.onrender.com/',
-    featured: false,
-  },  
+    featured: true,
+  },
+  {
+    title: 'UniShareSync Web App',
+    subtitle: 'University Resource Sharing Web Platform',
+    description:
+      'Full-stack academic platform enabling university students, faculty, and admins to share academic resources, collaborate on projects, manage events, and communicate via real-time notifications with secure email OTP login and role-based access control.',
+    highlights: ['Email OTP Auth', 'RBAC', 'Real-time Notifications', 'RESTful API'],
+    image: '/projects/unisharesync.png',
+    tech: [
+      { name: 'React', icon: '/icons/react-original.svg' },
+      { name: 'Node.js', icon: '/icons/nodejs-original.svg' },
+      { name: 'PostgreSQL', icon: '/icons/postgresql-original.svg' },
+      { name: 'Tailwind CSS', icon: '/icons/tailwindcss-original.svg' },
+    ],
+    github: 'https://github.com/mhjayeed715/UniShareSync',
+    live: 'https://unisharesyncweb.vercel.app/',
+    featured: true,
+  },
   {
     title: 'SkillVoyage',
     subtitle: 'Learning Goal Tracker',
@@ -59,20 +95,6 @@ const projects = [
     ],
     github: 'https://github.com/mhjayeed715/skillvoyage',
     live: 'https://skillvoyage-frontend.vercel.app/',
-    featured: true,
-  },
-  {
-    title: 'UniShareSyncFX',
-    subtitle: 'Desktop Collaboration Tool',
-    description:
-      'JavaFX desktop application facilitating university resource sharing and collaboration through role-specific dashboards, real-time communication, and project tracking with MySQL integration.',
-    highlights: ['Role Dashboards', 'Real-time Chat', 'MySQL Integration'],
-    image: '/projects/unisharesyncfx.png',
-    tech: [
-      { name: 'Java', icon: '/icons/java-original.svg' },
-      { name: 'MySQL', icon: '/icons/mysql-original.svg' },
-    ],
-    github: 'https://github.com/mhjayeed715/UniShareSyncFX',
     featured: false,
   },
   {
@@ -88,7 +110,21 @@ const projects = [
       { name: 'Supabase', icon: '/icons/supabase-original.svg' },
     ],
     github: 'https://github.com/mhjayeed715/servyn',
-    featured: true,
+    featured: false,
+  },
+  {
+    title: 'UniShareSyncFX',
+    subtitle: 'Desktop Collaboration Tool',
+    description:
+      'JavaFX desktop application facilitating university resource sharing and collaboration through role-specific dashboards, real-time communication, and project tracking with MySQL integration.',
+    highlights: ['Role Dashboards', 'Real-time Chat', 'MySQL Integration'],
+    image: '/projects/unisharesyncfx.png',
+    tech: [
+      { name: 'Java', icon: '/icons/java-original.svg' },
+      { name: 'MySQL', icon: '/icons/mysql-original.svg' },
+    ],
+    github: 'https://github.com/mhjayeed715/UniShareSyncFX',
+    featured: false,
   },
   {
     title: 'AI Drainage Optimizer',
@@ -117,8 +153,8 @@ function ProjectCard({ project, index }) {
       className={`group grid lg:grid-cols-2 gap-8 items-center ${!isEven ? 'lg:direction-rtl' : ''}`}
     >
       {/* Image */}
-      <div className={`relative overflow-hidden rounded-xl border border-border shadow-sm ${!isEven ? 'lg:order-2' : ''}`}>
-        <div className="aspect-video bg-secondary/30">
+      <div className={`relative overflow-hidden rounded-xl border border-border shadow-sm bg-card ${!isEven ? 'lg:order-2' : ''}`}>
+        <div className="aspect-video bg-secondary/30 relative overflow-hidden">
           <img
             src={project.image}
             alt={project.title}
@@ -127,11 +163,19 @@ function ProjectCard({ project, index }) {
           />
         </div>
         {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
       </div>
 
       {/* Info */}
       <div className={`space-y-4 ${!isEven ? 'lg:order-1 lg:text-right' : ''}`}>
+        {/* Award Banner if present */}
+        {project.award && (
+          <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold ${!isEven ? 'lg:ml-auto' : ''}`}>
+            <Trophy size={13} className="shrink-0" />
+            <span>{project.award}</span>
+          </div>
+        )}
+
         <div>
           <p className="text-sm font-semibold text-primary mb-1">{project.subtitle}</p>
           <h3 className="font-display text-2xl font-bold text-foreground">{project.title}</h3>
@@ -241,7 +285,7 @@ export default function Projects() {
           >
             <button
               onClick={() => setShowAll(!showAll)}
-              className="px-8 py-3 rounded-xl border border-primary/30 text-primary font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              className="px-8 py-3 rounded-xl border border-primary/30 text-primary font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-300 cursor-pointer"
             >
               {showAll ? 'Show Less' : 'See More Projects'}
             </button>
