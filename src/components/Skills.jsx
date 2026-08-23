@@ -160,7 +160,7 @@ export default function Skills() {
                       <motion.div
                         key={item.name}
                         whileHover={{ scale: 1.02, y: -2 }}
-                        className="group p-3 rounded-2xl border border-border bg-card hover:border-primary/50 shadow-sm transition-all flex items-center gap-3 relative overflow-hidden"
+                        className="group p-3 rounded-2xl border border-border bg-card hover:border-primary/50 shadow-sm transition-all flex items-center gap-3 relative overflow-visible hover:z-30"
                       >
                         {/* Tech Icon */}
                         <div className="w-8 h-8 rounded-xl bg-secondary border border-border flex items-center justify-center shrink-0 p-1.5">
