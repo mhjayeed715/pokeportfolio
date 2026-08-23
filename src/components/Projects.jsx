@@ -1,6 +1,12 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { ExternalLink, Trophy } from 'lucide-react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ExternalLink, Trophy, Swords, X, Play, Code2, Sparkles, ChevronRight, Layers, Box } from 'lucide-react'
+import { soundFx } from '../utils/sound'
+import { projectsData } from '../data/projects'
+import PokeBallIcon from './PokeBallIcon'
+import TypeBadge from './TypeBadge'
+import HPBar from './HPBar'
+import SummaryScreenModal from './SummaryScreenModal'
 
 const GitHubIcon = ({ className }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -8,289 +14,222 @@ const GitHubIcon = ({ className }) => (
   </svg>
 )
 
-const projects = [
-  {
-    title: 'UniShareSync Mobile App',
-    subtitle: 'Centralized University Collaboration & Campus Management',
-    award: '2nd Place — Software Project Showcase 2026 (Inter-Department)',
-    description:
-      'Cross-platform mobile application centralizing university academic workflows, student collaboration, and campus management into a unified ecosystem. Built with Flutter and Supabase, featuring an AI Campus Assistant with Groq RAG document querying, real-time collaborative whiteboards & Kanban boards with multi-user presence, campus bus transit tracking via OpenStreetMap, CampusShare peer-to-peer item sharing with digital agreements, and QR event check-ins.',
-    highlights: ['Flutter & Supabase', 'AI Campus Assistant (RAG)', 'Real-time Whiteboard & Kanban', 'FCM Push Notifications', 'CampusShare P2P'],
-    image: '/projects/unisharesync_mobile.png',
-    tech: [
-      { name: 'Flutter', icon: '/icons/flutter-original.svg' },
-      { name: 'Dart', icon: '/icons/dart-original.svg' },
-      { name: 'Supabase', icon: '/icons/supabase-original.svg' },
-      { name: 'Postman', icon: '/icons/postman-original.svg' },
-    ],
-    github: 'https://github.com/mhjayeed715/UniShareSync-Mobile-App',
-    live: 'https://unisharesync.vercel.app/',
-    featured: true,
-  },
-  {
-    title: 'Focusnyx',
-    subtitle: 'The Ultimate Student Life OS & Cognitive Shield',
-    description:
-      'Full-stack productivity operating system and digital cognitive shield tailored for university students and neurodivergent learners. Integrates a Next.js 14 web app, Chrome Manifest V3 extension for browser distraction blocking, and a Python Win32 companion for system-level shortcut/window focus enforcement. Includes ADHD & Standard interaction modes, Smart Academic Forge CGPA momentum calculator, AI Behavioral Coach, and bilingual voice notes.',
-    highlights: ['Next.js 14 & Supabase', 'Chrome MV3 Extension', 'Win32 System Hooks', 'ADHD & Standard Modes', 'AI Behavioral Coach'],
-    image: '/projects/focusnyx.png',
-    tech: [
-      { name: 'React', icon: '/icons/react-original.svg' },
-      { name: 'TypeScript', icon: '/icons/typescript-original.svg' },
-      { name: 'Node.js', icon: '/icons/nodejs-original.svg' },
-      { name: 'Supabase', icon: '/icons/supabase-original.svg' },
-      { name: 'Python', icon: '/icons/python-original.svg' },
-    ],
-    github: 'https://github.com/mhjayeed715/Focusnyx',
-    live: 'https://focusnyx.vercel.app/',
-    featured: true,
-  },
-  {
-    title: 'GigCampus',
-    subtitle: 'Campus-only Micro-Gig Marketplace',
-    description:
-      'A peer-to-peer campus task marketplace built as a CS50x final project. Enables university students to find trustworthy peers for quick, affordable tasks. Features university student ID verification, real-time messaging powered by Socket.IO, live order tracking, and an automated ghosting detection system.',
-    highlights: ['CS50x Final Project', 'Real-time Chat', 'Order Tracking', 'Ghosting Detection'],
-    image: '/projects/GigCampus.png',
-    tech: [
-      { name: 'Python', icon: '/icons/python-original.svg' },
-      { name: 'Flask', icon: '/icons/flask-original.svg' },
-      { name: 'SQLite', icon: '/icons/sqlite-original.svg' },
-      { name: 'Jinja', icon: '/icons/jinja-original.svg' },
-      { name: 'Socket.IO', icon: '/icons/socketio-original.svg' },
-    ],
-    github: 'https://github.com/mhjayeed715/GigCampus',
-    live: 'https://gigcampus-7er7.onrender.com/',
-    featured: true,
-  },
-  {
-    title: 'UniShareSync Web App',
-    subtitle: 'University Resource Sharing Web Platform',
-    description:
-      'Full-stack academic platform enabling university students, faculty, and admins to share academic resources, collaborate on projects, manage events, and communicate via real-time notifications with secure email OTP login and role-based access control.',
-    highlights: ['Email OTP Auth', 'RBAC', 'Real-time Notifications', 'RESTful API'],
-    image: '/projects/unisharesync.png',
-    tech: [
-      { name: 'React', icon: '/icons/react-original.svg' },
-      { name: 'Node.js', icon: '/icons/nodejs-original.svg' },
-      { name: 'PostgreSQL', icon: '/icons/postgresql-original.svg' },
-      { name: 'Tailwind CSS', icon: '/icons/tailwindcss-original.svg' },
-    ],
-    github: 'https://github.com/mhjayeed715/UniShareSync',
-    live: 'https://unisharesyncweb.vercel.app/',
-    featured: true,
-  },
-  {
-    title: 'SkillVoyage',
-    subtitle: 'Learning Goal Tracker',
-    description:
-      'MERN stack platform enabling users to set learning goals, track progress through interactive dashboards, and receive personalized skill development recommendations with secure authentication and role-based access.',
-    highlights: ['Interactive Dashboards', 'JWT Auth', 'Personalized Recommendations'],
-    image: '/projects/skillvoyage.png',
-    tech: [
-      { name: 'React', icon: '/icons/react-original.svg' },
-      { name: 'MongoDB', icon: '/icons/mongodb-original.svg' },
-      { name: 'Express.js', icon: '/icons/express-original.svg' },
-      { name: 'Node.js', icon: '/icons/nodejs-original.svg' },
-    ],
-    github: 'https://github.com/mhjayeed715/skillvoyage',
-    live: 'https://skillvoyage-frontend.vercel.app/',
-    featured: false,
-  },
-  {
-    title: 'Servyn',
-    subtitle: 'Local Service Booking App',
-    description:
-      'Flutter-based mobile app for reliable local service booking in Bangladesh with role-based access, phone OTP authentication via Supabase, and SMS notifications for seamless provider-customer interactions.',
-    highlights: ['Phone OTP Auth', 'SMS Notifications', 'Role-Based Access'],
-    image: '/projects/servyn.png',
-    tech: [
-      { name: 'Flutter', icon: '/icons/flutter-original.svg' },
-      { name: 'Dart', icon: '/icons/dart-original.svg' },
-      { name: 'Supabase', icon: '/icons/supabase-original.svg' },
-    ],
-    github: 'https://github.com/mhjayeed715/servyn',
-    featured: false,
-  },
-  {
-    title: 'UniShareSyncFX',
-    subtitle: 'Desktop Collaboration Tool',
-    description:
-      'JavaFX desktop application facilitating university resource sharing and collaboration through role-specific dashboards, real-time communication, and project tracking with MySQL integration.',
-    highlights: ['Role Dashboards', 'Real-time Chat', 'MySQL Integration'],
-    image: '/projects/unisharesyncfx.png',
-    tech: [
-      { name: 'Java', icon: '/icons/java-original.svg' },
-      { name: 'MySQL', icon: '/icons/mysql-original.svg' },
-    ],
-    github: 'https://github.com/mhjayeed715/UniShareSyncFX',
-    featured: false,
-  },
-  {
-    title: 'AI Drainage Optimizer',
-    subtitle: 'AI-Powered Urban Water Management',
-    description:
-      'AI-powered system to optimize waterlogging and drainage, enhancing urban water management and reducing flood risks through predictive analytics.',
-    highlights: ['AI/ML Pipeline', 'Predictive Analytics', 'Urban Planning'],
-    image: '/projects/ai-drainage.png',
-    tech: [
-      { name: 'Python', icon: '/icons/python-original.svg' },
-    ],
-    github: 'https://github.com/mhjayeed715/AI-Powered-Smart-Waterlogging-and-Drainage-Optimizer',
-    featured: false,
-  },
-]
-
-function ProjectCard({ project, index }) {
-  const isEven = index % 2 === 0
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className={`group grid lg:grid-cols-2 gap-8 items-center ${!isEven ? 'lg:direction-rtl' : ''}`}
-    >
-      {/* Image */}
-      <div className={`relative overflow-hidden rounded-xl border border-border shadow-sm bg-card ${!isEven ? 'lg:order-2' : ''}`}>
-        <div className="aspect-video bg-secondary/30 relative overflow-hidden">
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            loading={index < 2 ? 'eager' : 'lazy'}
-          />
-        </div>
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-      </div>
-
-      {/* Info */}
-      <div className={`space-y-4 ${!isEven ? 'lg:order-1 lg:text-right' : ''}`}>
-        {/* Award Banner if present */}
-        {project.award && (
-          <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-600 dark:text-amber-400 text-xs font-semibold ${!isEven ? 'lg:ml-auto' : ''}`}>
-            <Trophy size={13} className="shrink-0" />
-            <span>{project.award}</span>
-          </div>
-        )}
-
-        <div>
-          <p className="text-sm font-semibold text-primary mb-1">{project.subtitle}</p>
-          <h3 className="font-display text-2xl font-bold text-foreground">{project.title}</h3>
-        </div>
-
-        <p className="text-muted-foreground text-sm leading-relaxed">{project.description}</p>
-
-        {/* Highlights */}
-        <div className={`flex flex-wrap gap-2 ${!isEven ? 'lg:justify-end' : ''}`}>
-          {project.highlights.map((h) => (
-            <span
-              key={h}
-              className="text-[11px] font-medium px-2.5 py-1 rounded-md bg-primary/10 text-primary border border-primary/20"
-            >
-              {h}
-            </span>
-          ))}
-        </div>
-
-        {/* Tech icons */}
-        <div className={`flex items-center gap-3 pt-1 ${!isEven ? 'lg:justify-end' : ''}`}>
-          {project.tech.map((t) => (
-            <div key={t.name} className="group/icon relative">
-              <img
-                src={t.icon}
-                alt={t.name}
-                className="w-6 h-6 object-contain opacity-60 hover:opacity-100 transition-opacity"
-              />
-              <span className="absolute -top-7 left-1/2 -translate-x-1/2 text-[10px] bg-card border border-border px-1.5 py-0.5 rounded text-foreground opacity-0 group-hover/icon:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-sm">
-                {t.name}
-              </span>
-            </div>
-          ))}
-        </div>
-
-        {/* Links */}
-        <div className={`flex gap-3 pt-2 ${!isEven ? 'lg:justify-end' : ''}`}>
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-border hover:border-primary/30 hover:bg-secondary/50 transition-colors"
-            >
-              <GitHubIcon className="w-4 h-4" />
-              Code
-            </a>
-          )}
-          {project.live && (
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
-            >
-              <ExternalLink size={14} />
-              Live Demo
-            </a>
-          )}
-        </div>
-      </div>
-    </motion.div>
-  )
-}
-
 export default function Projects() {
-  const [showAll, setShowAll] = useState(false)
-  const displayedProjects = showAll ? projects : projects.slice(0, 4)
+  const [showBoxArchive, setShowBoxArchive] = useState(false)
+  const [selectedProject, setSelectedProject] = useState(null)
+
+  // Max 6 in party, rest in PC Box
+  const partyProjects = projectsData.slice(0, 6)
+  const boxProjects = projectsData.slice(6)
+  const displayedProjects = showBoxArchive ? projectsData : partyProjects
+
+  const handleOpenSummary = (proj) => {
+    soundFx.playOpen()
+    setSelectedProject(proj)
+  }
+
+  const handleCloseSummary = () => {
+    soundFx.playSelect()
+    setSelectedProject(null)
+  }
 
   return (
-    <section id="projects" className="py-24 section-alt">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="projects" className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-16"
+          className="mb-14"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px w-8 bg-primary" />
-            <span className="text-sm font-semibold text-primary uppercase tracking-widest">Projects</span>
+          <div className="flex items-center gap-3 mb-2">
+            <span className="font-heading text-xs font-bold text-primary px-2.5 py-1 rounded bg-primary/10 border border-primary/20">
+              ACTIVE PARTY [ {displayedProjects.length} / {projectsData.length} ]
+            </span>
+            <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest font-semibold">
+              POKÉMON PARTY SCREEN & SUMMARY
+            </span>
           </div>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-            Featured <span className="gradient-text">Work</span>
+          <h2 className="font-heading text-3xl sm:text-4xl font-black text-foreground">
+            Trainer Team <span className="gradient-text">(Party Screen)</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl">
-            Real-world applications with a focus on clean architecture, security, and scalability.
+          <p className="text-sm text-muted-foreground font-sans mt-1">
+            Click any party slot to launch the multi-tab Pokémon Summary Screen (Info, Moves, Ribbons, Stats) with live battle actions.
           </p>
         </motion.div>
 
-        {/* Projects list */}
-        <div className="space-y-20">
-          {displayedProjects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} index={i} />
-          ))}
+        {/* Pokémon Party Grid (Max 6 in Active Party) */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayedProjects.map((project, idx) => {
+            const isVariant = project.isVariantTheme && project.variantTheme
+
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                onClick={() => handleOpenSummary(project)}
+                className="group relative rounded-3xl border-2 border-border bg-card p-5 sm:p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-hidden flex flex-col justify-between"
+                style={{
+                  borderColor: isVariant ? project.variantTheme.primary : undefined,
+                  boxShadow: isVariant ? `0 8px 30px ${project.variantTheme.glow}` : undefined,
+                }}
+              >
+                <div>
+                  {/* Party Slot Top Ribbon */}
+                  <div className="flex items-start justify-between gap-3 mb-4 pb-3 border-b border-border">
+                    <div className="flex items-center gap-3">
+                      {/* Poké Ball Tier Icon */}
+                      <div className="shrink-0 group-hover:rotate-12 transition-transform">
+                        <PokeBallIcon type={project.ballType || 'pokeball'} size={28} />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-xs font-bold text-primary">
+                            {project.speciesNumber}
+                          </span>
+                          <h3 className="font-heading text-lg font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
+                            {project.title}
+                          </h3>
+                        </div>
+                        <p className="text-xs text-muted-foreground font-sans mt-0.5 truncate max-w-[200px]">
+                          {project.subtitle}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Level Badge */}
+                    <div className="shrink-0 text-right">
+                      <span className="font-pixel text-[8px] font-bold text-primary px-2 py-0.5 rounded bg-primary/10 border border-primary/20">
+                        LV.{project.level || 100}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Contest Ribbon if present */}
+                  {project.ribbon && (
+                    <div className="mb-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-heading font-bold">
+                      <Trophy size={13} className="shrink-0 text-amber-500" />
+                      <span>{project.ribbon}</span>
+                    </div>
+                  )}
+
+                  {/* Screenshot Viewport */}
+                  <div className="relative aspect-video rounded-2xl overflow-hidden border border-border bg-secondary mb-4 group-hover:border-primary/50 transition-colors shadow-inner">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading={idx < 3 ? 'eager' : 'lazy'}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                      <span className="font-heading text-xs font-bold text-white flex items-center gap-2">
+                        <Swords size={14} className="text-amber-400" />
+                        OPEN SUMMARY SCREEN (A)
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* In-Battle HP/PWR Bar */}
+                  <div className="mb-4 p-2.5 rounded-2xl bg-secondary/80 border border-border">
+                    <HPBar value={project.stats?.hp || 95} max={100} label="PWR" size="sm" showValues={false} />
+                  </div>
+
+                  {/* Elemental Types */}
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {project.types.map((typeName) => (
+                      <TypeBadge key={typeName} type={typeName} size="sm" />
+                    ))}
+                  </div>
+
+                  {/* Description */}
+                  <p className="font-sans text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-4">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Bottom Action Footer */}
+                <div className="pt-3 border-t border-border flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    {project.tech.map((t) => (
+                      <div key={t.name} className="w-6 h-6 rounded-lg bg-secondary p-1 border border-border shrink-0" title={t.name}>
+                        <img src={t.icon} alt={t.name} className="w-full h-full object-contain" />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          soundFx.playSelect()
+                        }}
+                        className="p-2 rounded-xl border border-border bg-secondary hover:border-primary text-muted-foreground hover:text-foreground transition-colors"
+                        title="View Source Code on GitHub"
+                      >
+                        <GitHubIcon className="w-4 h-4" />
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          soundFx.playSelect()
+                        }}
+                        className="retro-btn retro-btn-primary px-3 py-1.5 text-xs flex items-center gap-1"
+                        title="Launch Live Application"
+                      >
+                        <span>Live</span>
+                        <ExternalLink size={11} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
 
-        {/* See More Button */}
-        {projects.length > 4 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="mt-16 flex justify-center"
-          >
+        {/* Expand / PC Box Storage Switcher */}
+        {boxProjects.length > 0 && (
+          <div className="mt-12 flex justify-center">
             <button
-              onClick={() => setShowAll(!showAll)}
-              className="px-8 py-3 rounded-xl border border-primary/30 text-primary font-medium hover:bg-primary hover:text-primary-foreground transition-all duration-300 cursor-pointer"
+              onClick={() => {
+                soundFx.playSelect()
+                setShowBoxArchive(!showBoxArchive)
+              }}
+              className="retro-btn retro-btn-secondary px-6 py-3 text-xs flex items-center gap-2"
             >
-              {showAll ? 'Show Less' : 'See More Projects'}
+              <Box size={16} />
+              <span>
+                {showBoxArchive
+                  ? 'Show Active Party Only (6 Slots)'
+                  : `Open Bill's PC Storage Box (+${boxProjects.length} Archived Projects)`}
+              </span>
             </button>
-          </motion.div>
+          </div>
         )}
+
+        {/* Multi-Tab Summary Screen Lightbox Modal */}
+        <AnimatePresence>
+          {selectedProject && (
+            <SummaryScreenModal
+              project={selectedProject}
+              onClose={handleCloseSummary}
+            />
+          )}
+        </AnimatePresence>
       </div>
     </section>
   )

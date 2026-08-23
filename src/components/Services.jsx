@@ -1,115 +1,155 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Globe, Smartphone, Database, Bot, Shield, FileCode2 } from 'lucide-react'
+import { Globe, Smartphone, Database, Bot, Shield, FileCode2, Zap, Swords, Sparkles, Activity } from 'lucide-react'
+import { soundFx } from '../utils/sound'
+import { servicesData } from '../data/services'
+import { POKEMON_TYPES } from '../data/techTypeMap'
+import TypeBadge from './TypeBadge'
 
-const services = [
-  {
-    icon: Globe,
-    title: 'Full-Stack Web Development',
-    description:
-      'End-to-end web applications with React, Node.js, Express, and PostgreSQL/MongoDB. REST APIs, real-time features, role-based access, and scalable architecture.',
-    tags: ['React', 'Node.js', 'PostgreSQL', 'MongoDB'],
-  },
-  {
-    icon: Smartphone,
-    title: 'Mobile App Development',
-    description:
-      'Cross-platform mobile applications using Flutter and Dart with clean UI, OTP authentication, push notifications, and seamless backend integration.',
-    tags: ['Flutter', 'Dart', 'Supabase'],
-  },
-  {
-    icon: Database,
-    title: 'Database Design & API Architecture',
-    description:
-      'Normalized database schemas, efficient queries, RESTful APIs with proper error handling, pagination, and security best practices.',
-    tags: ['PostgreSQL', 'MySQL', 'MongoDB', 'Express.js'],
-  },
-  {
-    icon: Bot,
-    title: 'AI-Assisted Development',
-    description:
-      'Rapid prototyping and MVP delivery using AI coding tools. Structured prompt engineering, code validation, and AI-human hybrid workflows for faster shipping.',
-    tags: ['Prompt Engineering', 'AI Tools', 'Rapid MVP'],
-  },
-  {
-    icon: Shield,
-    title: 'Auth & Security Implementation',
-    description:
-      'JWT authentication, email OTP verification, role-based access control (RBAC), input validation, and secure session management.',
-    tags: ['JWT', 'OTP', 'RBAC', 'Security'],
-  },
-  {
-    icon: FileCode2,
-    title: 'Documentation & Version Control',
-    description:
-      'Clean, well-structured documentation and version-controlled codebases using Git. Conventional commits, branching strategies, README standards, and collaborative workflows.',
-    tags: ['Git', 'GitHub', 'Markdown', 'CI/CD'],
-  },
-]
+const iconMap = {
+  Globe,
+  Smartphone,
+  Database,
+  Bot,
+  Shield,
+  FileCode2,
+}
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay: i * 0.1 },
-  }),
+// Official move categories mapped to engineering functions
+const categoryConfig = {
+  Physical: {
+    label: 'PHYSICAL (BUILD)',
+    desc: 'Heavy full-stack code execution & direct system construction',
+    badgeColor: '#EF4444',
+  },
+  Special: {
+    label: 'SPECIAL (DESIGN)',
+    desc: 'Visual interface design, UI/UX aesthetics & micro-animations',
+    badgeColor: '#38BDF8',
+  },
+  Status: {
+    label: 'STATUS (CONSULT)',
+    desc: 'AI workflow optimization, architectural strategy & security audits',
+    badgeColor: '#A855F7',
+  },
 }
 
 export default function Services() {
+  const [hoveredMove, setHoveredMove] = useState(null)
+
   return (
-    <section id="services" className="py-24 section-alt">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="services" className="py-24 relative">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-16"
+          className="mb-14"
         >
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-px w-8 bg-primary" />
-            <span className="text-sm font-semibold text-primary uppercase tracking-widest">Services</span>
+          <div className="flex items-center gap-3 mb-2">
+            <span className="font-heading text-xs font-bold text-primary px-2.5 py-1 rounded bg-primary/10 border border-primary/20">
+              BATTLE MOVE SELECT SCREEN // [ 6 / 6 MOVES ]
+            </span>
+            <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest font-semibold">
+              MOVE DIRECTORY & AVAILABILITY
+            </span>
           </div>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-            Problems I <span className="gradient-text">Solve</span>
+          <h2 className="font-heading text-3xl sm:text-4xl font-black text-foreground">
+            Signature <span className="gradient-text">Battle Moves</span>
           </h2>
-          <p className="text-muted-foreground max-w-xl">
-            From idea to deployment — I handle the full lifecycle of building modern, secure, and scalable applications.
+          <p className="text-sm text-muted-foreground font-sans mt-1">
+            Recreating the in-game battle attack menu. Repurposing PP as service availability with Physical, Special, and Status move categories.
           </p>
         </motion.div>
 
-        {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((s, i) => (
-            <motion.div
-              key={s.title}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: '-40px' }}
-              variants={cardVariants}
-              className="group glow-card rounded-xl border border-border bg-card p-6 hover:border-primary/30 transition-all duration-300 hover:-translate-y-1 relative overflow-hidden shadow-sm"
-            >
-              <div className="relative z-10">
-                <div className="w-11 h-11 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <s.icon size={22} className="text-primary" />
-                </div>
-                <h3 className="font-display text-lg font-semibold mb-2 text-foreground">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">{s.description}</p>
-                <div className="flex flex-wrap gap-1.5">
-                  {s.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="text-[11px] font-medium px-2 py-0.5 rounded-md bg-primary/10 text-primary"
-                    >
-                      {t}
+        {/* 2x3 Battle Move Menu Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {servicesData.map((move, i) => {
+            const IconComponent = iconMap[move.iconName] || Globe
+            const typeConfig = POKEMON_TYPES[move.type] || POKEMON_TYPES.Normal
+            const catInfo = categoryConfig[move.category] || categoryConfig.Physical
+            const isHovered = hoveredMove === move.id
+
+            return (
+              <motion.div
+                key={move.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                onMouseEnter={() => {
+                  soundFx.playBlip()
+                  setHoveredMove(move.id)
+                }}
+                onMouseLeave={() => setHoveredMove(null)}
+                className="group relative rounded-3xl border-2 border-border bg-card p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 overflow-hidden cursor-pointer flex flex-col justify-between"
+                style={{
+                  borderColor: isHovered ? typeConfig.color : undefined,
+                  boxShadow: isHovered ? `0 10px 30px ${typeConfig.glow}` : undefined,
+                }}
+              >
+                <div>
+                  {/* Top Type Pill & PP Status Corner */}
+                  <div className="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-border">
+                    {/* Pokemon Type Badge with effectiveness tooltip */}
+                    <TypeBadge type={move.type} techName={move.title} size="md" />
+
+                    {/* PP Box ("PP 99/99 — Always Available") */}
+                    <div className="font-mono text-xs font-bold px-2.5 py-1 rounded-xl bg-secondary text-foreground border border-border flex items-center gap-1.5 shadow-sm">
+                      <span className="text-amber-500 font-pixel text-[8px]">PP</span>
+                      <span>{move.pp.replace('PP ', '')}</span>
+                    </div>
+                  </div>
+
+                  {/* Move Title */}
+                  <div className="mb-3">
+                    <span className="font-mono text-xs text-primary font-bold tracking-wider">
+                      MOVE #{`0${i + 1}`} // {move.moveName}
                     </span>
-                  ))}
+                    <h3 className="font-heading text-xl font-bold text-foreground group-hover:text-primary transition-colors mt-0.5">
+                      {move.title}
+                    </h3>
+                  </div>
+
+                  {/* Lore Description */}
+                  <p className="font-sans text-xs sm:text-sm text-muted-foreground leading-relaxed mb-4">
+                    {move.description}
+                  </p>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+
+                <div>
+                  {/* Battle Stats Bar (Category, Accuracy, Power) */}
+                  <div className="grid grid-cols-2 gap-2 mb-4 p-3 rounded-2xl bg-secondary/80 border border-border font-mono text-xs">
+                    <div className="space-y-0.5">
+                      <span className="text-muted-foreground text-[10px] uppercase font-bold">
+                        CATEGORY:
+                      </span>
+                      <p className="font-heading text-xs font-bold text-foreground truncate" style={{ color: catInfo.badgeColor }}>
+                        {catInfo.label.split(' ')[0]}
+                      </p>
+                    </div>
+                    <div className="space-y-0.5 text-right">
+                      <span className="text-muted-foreground text-[10px] uppercase font-bold">
+                        ACCURACY:
+                      </span>
+                      <p className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">
+                        {move.accuracy}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Tech Tags with interactive TypeBadges */}
+                  <div className="pt-3 border-t border-border flex flex-wrap gap-1.5">
+                    {move.tags.map((tag) => (
+                      <TypeBadge key={tag} techName={tag} size="sm" />
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>

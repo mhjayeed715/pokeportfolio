@@ -1,9 +1,46 @@
-# S. M. Mehrab Hossain Jayeed — Portfolio
+# 🔴 S. M. Mehrab Hossain Jayeed — Pokédex Developer Portfolio
 
-A modern, high-performance developer portfolio built with React 19, Tailwind CSS v4, and Framer Motion. Features dark/light mode, dynamic particle animations, project showcases, live credential verification with modal previews, and an integrated contact form.
+An ultra-premium, interactive Pokédex-themed developer portfolio for **S. M. Mehrab Hossain Jayeed** (Full-Stack Architect & AI-Augmented Software Engineer). Built with React 19, Tailwind CSS v4, Lenis Smooth Scrolling, Framer Motion, and synthesized Web Audio API sound effects.
 
-🌐 **Live URL**: [https://jayeed.pro.bd/](https://jayeed.pro.bd/)  
-🔗 **Mirror / Vercel**: [https://mhjayeed715.vercel.app/](https://mhjayeed715.vercel.app/)
+---
+
+## ⚡ Core Concept & Pokémon Game Mechanics
+
+The visitor doesn't just browse a portfolio — they scan a Trainer's official Pokédex database with authentic Nintendo & Pokémon mechanics:
+
+1. **Boot / Intro Sequence (`BootSequence.jsx`)**: Vintage CRT power-on scanlines, blinking status LEDs, 3-note harmonic Web Audio power chime, and `"PROF. OAK'S LAB — LOADING PROFILE..."` terminal text (session-persisted with instant skip).
+2. **Hero & Starter Selection (`Hero.jsx`)**:
+   - Three hovering interactive Poké Balls for **CODE**, **DESIGN**, and **DEPLOY** (nodding to Bulbasaur, Charmander, Squirtle) that trigger release animations and scroll to Signature Moves.
+   - Official **Gen 3/4 Trainer Card (`TrainerCard.jsx`)**: `IDNo. 00715`, Badges collected (3 competition wins), Pokédex Owned (`8/8 Projects Caught`), Time Played (`3+ Years on Journey`), and Money (`20+ Tech Types Mastered`).
+   - Live video portal playing `profilevid.webm` inside an animated Pokédex optical scanner frame.
+3. **Species Entry (`About.jsx`)**:
+   - Left optical scanner with `profilevid.webm` and laser scan reticle.
+   - Classification `"THE FULL-STACK ARCHITECT"` with playful `"Stack Depth: 5'11\" (Full-Stack)"` and `"Experience Weight: 3+ YRS / 8+ MVPs"` stat lines.
+   - Red physical **"CRY"** button that plays an authentic synthesized retro 8-bit Pokédex cry sound.
+   - Typewriter flavor text bio and 5 expandable Pokédex Abilities.
+4. **Signature Moves (`Services.jsx`)**: Battle move-select screen (2x3 attack menu) with `PP 99/99 — Always Available` counters, Physical/Special/Status categories, and type coloring.
+5. **Base Stats & 18-Type Matrix (`Skills.jsx`)**:
+   - Base Stat spread (HP, ATK, DEF, SpA, SpD, SPE with BST: 700+ S+ Tier).
+   - Nature mechanic: *"Nature: Hardy — boosts AI-Augmented Workflow, balanced across full stack engineering"*.
+   - Complete 18-type technology grid with custom SVG type badges and **interactive hover matchup tooltips** (*"Super effective against Legacy Codebases (+2.0x)"*).
+   - Collapsible Hidden Abilities panel (LSTM, Federated Learning, NLP, Prompt Engineering, JWT Security).
+6. **"My Team" Party Screen (`Projects.jsx`)**:
+   - 6-slot active party index + Bill's PC Storage Box archive.
+   - Poké Ball rarity tier indicator icons (Poké Ball, Great Ball, Ultra Ball, Master Ball) + Level badges (Lv. 100) + in-battle HP/PWR bars.
+   - Multi-tab **Pokémon Summary Screen Modal (`SummaryScreenModal.jsx`)** with Info, Moves, Ribbons (2nd Place Showcase Trophy), and Stats tabs + `[FIGHT (Live)]`, `[BAG (Code)]`, `[POKÉMON]`, and `[RUN]` commands.
+7. **Gym Badge Case & TM Case (`Achievements.jsx`)**:
+   - Bulbapedia-inspired velvet Badge Case displaying the 3 competition championship badges (2nd Place Showcase 2026, Champion Project 2025, Datathon ML 2026) + 8 Kanto League Gym Badges with interactive case study / HM unlocks.
+   - Optical TM Discs case for Harvard CS50 AI, CS50x, and Anthropic MCP credentials with verification lightboxes.
+8. **Trainer's Code (`Philosophy.jsx` & `GymLeaderDialogueBox.jsx`)**:
+   - Gym Leader pre-battle RPG dialogue box with Leader video portrait, typewriter animation, and animated bouncing `▼` prompt for page-turning.
+9. **Evolution Line (`Education.jsx` & `EvolutionChain.jsx`)**:
+   - 3-stage metamorphosis from SSC (2019) → HSC (2021) → BSc CSE (2026 Active Form with Mega/Tera aura and full XP bar).
+10. **"Catch Me!" (`Contact.jsx` & `CatchSequence.jsx`)**:
+    - Choose Poké Ball (Master, Ultra, Great, Premier, Quick, Poké Ball).
+    - Throw ball → 3 authentic wobble shakes → *"GOTCHA! S. M. Mehrab Hossain Jayeed was caught!"*
+    - Unlocks the naming screen with EmailJS contact transmission form + Trainer's PC Box storage endpoints.
+11. **Audio Engine (`src/utils/sound.ts`)**:
+    - Pure procedural 8-bit synthesizer for Pokédex cries, boot sequence blips, A-button select, ball throw, wobble ticks, catch fanfare, and evolution ascend chimes (toggleable, default OFF).
 
 ---
 
@@ -11,99 +48,128 @@ A modern, high-performance developer portfolio built with React 19, Tailwind CSS
 
 | Technology | Purpose |
 |---|---|
-| **React 19** + **Vite 7** | Modern component architecture & lightning-fast builds |
-| **Tailwind CSS v4** | Utility-first styling with CSS theme tokens |
-| **Framer Motion** | Fluid scroll-triggered animations and layout transitions |
-| **EmailJS** | Direct client-side email delivery for the contact form |
-| **Lucide React** | Cohesive, modern icon library |
+| **React 19** + **Vite 7** | High-performance component architecture |
+| **Tailwind CSS v4** | Modern CSS theme tokens, Pokédex palettes, and responsive breakpoints |
+| **Lenis (v1.3)** | Inertia smooth scrolling & synchronized anchor navigation |
+| **Framer Motion 12** | Fluid scroll-driven transitions, card flips, and modal spring animations |
+| **Web Audio API** | Pure procedural 8-bit sound synthesis (zero external audio asset dependencies) |
+| **EmailJS** | Client-side email routing for the contact communicator |
+| **Lucide React** | Cohesive vector icon system |
 
 ---
 
-## ✨ Features & Highlights
+## 📂 Architecture & Data-Driven Design
 
-- **Light / Dark Mode** — Instant theme switching with smooth transitions, persisted in `localStorage`.
-- **Interactive Hero** — Typewriter role cycler, floating background particles, orbiting tech badges, and parallax cursor tracking.
-- **Featured Projects Showcase** — Clean cards with tech stacks, live demos, repository links, and award badges:
-  1. **UniShareSync Mobile App** — *2nd Place Winner (Software Project Showcase 2026)* • Flutter, Supabase, Groq RAG AI, Real-time Whiteboard/Kanban.
-  2. **Focusnyx** — *Student Life OS & Cognitive Shield* • Next.js 14, Supabase, Python Win32 Companion, Chrome MV3 Extension.
-  3. **GigCampus** — *Campus Micro-Gig Marketplace* • CS50x Capstone • Python, Flask, SQLite, Socket.IO.
-  4. **UniShareSync Web App** — *University Resource Sharing Platform* • React, Node.js, PostgreSQL.
-  - *Expandable section* with 4 additional projects (**SkillVoyage**, **Servyn**, **UniShareSyncFX**, **AI Drainage Optimizer**).
-- **Competitions & Achievements** — Highlights hackathons and showcase victories (*2nd Place Software Showcase 2026*, *Champion Project Showcasing 2025*, *Datathon ML Contest 2026*).
-- **Verified Professional Certifications** — Verified credentials with official public validation URLs and interactive click-to-expand preview modals:
-  - **CS50’s Introduction to AI with Python** — HarvardX / edX
-  - **CS50x: Introduction to Computer Science** — HarvardX / edX
-  - **Anthropic Model Context Protocol (MCP) Introduction** — Anthropic
-- **Working Contact Form** — Validated form powered by EmailJS delivering messages directly to inbox.
-- **Fully Responsive & Accessible** — Optimized for mobile, tablet, and desktop viewports with accessible ARIA semantics.
+All portfolio content is decoupled from UI components and organized into typed data files in `src/data/`:
+
+```
+portfolio-site/
+├── src/
+│   ├── data/
+│   │   ├── trainer.ts        # Hero stats, bio, abilities, socials, and resume URL
+│   │   ├── services.ts       # 6 signature battle moves with PP, categories, and tags
+│   │   ├── skills.ts         # Base stats, type chart categories, hidden abilities
+│   │   ├── projects.ts       # Party roster (8 caught projects with lore, moves, stats)
+│   │   ├── badges.ts         # Competition championship trophies & 8 Kanto badges
+│   │   ├── certifications.ts # TM / HM verified credentials & disc colors
+│   │   ├── education.ts      # 3-stage Evolution Line
+│   │   ├── philosophy.ts     # 4 Trainer's Code principles
+│   │   ├── contact.ts        # Transmission endpoints, EmailJS config & catch lore
+│   │   └── techTypeMap.ts    # 18-type Pokémon elemental mapping dictionary & tooltips
+│   ├── utils/
+│   │   └── sound.ts          # Synthesized Web Audio API sound FX engine
+│   ├── components/
+│   │   ├── BootSequence.jsx          # CRT power-on screen
+│   │   ├── PokedexFrame.jsx          # Top hardware bezel with blue lens & status LEDs
+│   │   ├── Navbar.jsx                # Pokédex menu with red active LED indicator
+│   │   ├── Hero.jsx                  # Starter selection homage (Code, Design, Deploy)
+│   │   ├── TrainerCard.jsx           # Gen 3/4 official trainer card with video scanner
+│   │   ├── TypeBadge.jsx             # Pokémon type badge with matchup tooltip
+│   │   ├── HPBar.jsx                 # In-battle segmented HP / PWR status bar
+│   │   ├── PokeBallIcon.jsx          # 7 SVG Poké Ball variants & rarity tiers
+│   │   ├── About.jsx                 # Pokédex species entry with red Cry button
+│   │   ├── Services.jsx              # Battle Move Selection cards with PP counters
+│   │   ├── Skills.jsx                # Base Stats, Nature, and 18-type matrix
+│   │   ├── Projects.jsx              # Active party screen + PC Box archive
+│   │   ├── SummaryScreenModal.jsx    # Multi-tab Pokémon Summary Screen modal
+│   │   ├── Achievements.jsx          # Velvet Gym Badge Case & TM Case
+│   │   ├── BadgeCase.jsx             # Trophy case with project unlock telemetry
+│   │   ├── TMCase.jsx                # TM inventory discs with lightbox inspection
+│   │   ├── Philosophy.jsx            # Trainer's Code Gym Leader section
+│   │   ├── GymLeaderDialogueBox.jsx  # Pre-battle RPG dialogue box with ▼ prompt
+│   │   ├── Education.jsx             # Evolution Line section
+│   │   ├── EvolutionChain.jsx        # 3-stage evolution line with Mega aura
+│   │   ├── Contact.jsx               # Contact section
+│   │   ├── CatchSequence.jsx         # 3-shake Poké Ball throw animation & naming form
+│   │   ├── Footer.jsx                # Diagnostic footer & boot sequence replay
+│   │   ├── ThemeToggle.jsx           # Day (Scarlet) / Night (Gunmetal) switcher
+│   │   └── ScrollToTop.jsx           # Floating Poké Ball back-to-top button
+│   ├── App.jsx                       # Root assembler with Lenis smooth scroll
+│   └── index.css                     # Theme variables & Pokédex scanline styles
+```
 
 ---
 
-## 🚀 Getting Started
+## 📖 Content Management (Data Files Only)
+
+### 1. Adding a New Project (Party Slot)
+Open `src/data/projects.ts` and add an object to `projectsData`:
+
+```typescript
+{
+  id: 'my-project',
+  speciesNumber: '#009',
+  title: 'Project Title',
+  subtitle: 'One-line Subtitle',
+  ribbon: 'Optional Championship Ribbon Name',
+  ribbonType: 'gold',
+  ballType: 'ultra', // 'master' | 'ultra' | 'great' | 'safari' | 'quick' | 'premier' | 'pokeball'
+  types: ['Electric', 'Water'],
+  description: 'Full overview of the software engineering solution...',
+  battleLore: 'Lore flavor text for battle view...',
+  highlights: ['Feature 1', 'Feature 2'],
+  moves: [
+    { name: 'Feature Move 1', description: 'What it accomplishes', type: 'Electric' },
+    { name: 'Feature Move 2', description: 'What it accomplishes', type: 'Water' }
+  ],
+  stats: { hp: 95, atk: 90, def: 92, speed: 94 },
+  level: 100,
+  image: '/projects/my-image.png',
+  tech: [
+    { name: 'React', icon: '/icons/react-original.svg', type: 'Electric' }
+  ],
+  github: 'https://github.com/mhjayeed715/...',
+  live: 'https://...',
+  featured: true
+}
+```
+
+### 2. Updating Profile Video
+Place your WebM video at `public/profilevid.webm`. It will automatically be rendered in both the Trainer Card in Hero and the Optical Scanner in About with CRT scanlines and reticle effects.
+
+---
+
+## 🚀 Local Development
 
 ```bash
-# Clone the repository
-git clone https://github.com/mhjayeed715/portfolio.git
-
-# Navigate to project directory
-cd portfolio/portfolio-site
+# Navigate to portfolio-site
+cd portfolio-site
 
 # Install dependencies
 npm install
 
-# Start local development server
+# Start local development server with Vite
 npm run dev
 
-# Build for production
+# Build production bundle
 npm run build
 
-# Preview production bundle
+# Preview production build locally
 npm run preview
-```
-
----
-
-## 📂 Project Structure
-
-```
-portfolio-site/
-├── public/
-│   ├── SM_Mehrab_Hossain_Jayeed_Resume.pdf  # Downloadable resume
-│   ├── profile.png                         # Profile photo
-│   ├── profile2.png                        # Hero profile photo
-│   ├── favicon.svg                         # Site favicon
-│   ├── certificates/                       # High-res certificate previews
-│   │   ├── CS50AI1.png
-│   │   ├── CS50x1.png
-│   │   └── anthropic.png
-│   ├── icons/                              # Tech stack SVG icons
-│   ├── projects/                           # Project screenshots
-│   └── education/                          # University and college logos
-├── src/
-│   ├── components/
-│   │   ├── Navbar.jsx                      # Fixed frosted-glass navigation bar
-│   │   ├── Hero.jsx                        # Animated hero with particle canvas
-│   │   ├── About.jsx                       # About narrative & strength metrics
-│   │   ├── Services.jsx                    # Core engineering services
-│   │   ├── Skills.jsx                      # Tech stack grid & proficiency levels
-│   │   ├── Projects.jsx                    # Featured & expandable projects showcase
-│   │   ├── Achievements.jsx                # Competitions & verified certifications
-│   │   ├── Philosophy.jsx                  # Software engineering principles
-│   │   ├── Education.jsx                   # Academic timeline
-│   │   ├── Contact.jsx                     # EmailJS contact form & social links
-│   │   ├── Footer.jsx                      # Multi-column footer & copyright
-│   │   ├── ThemeToggle.jsx                 # Light/dark mode toggle
-│   │   └── ScrollToTop.jsx                 # Smooth scroll-to-top floating button
-│   ├── App.jsx                             # Root layout assembler
-│   ├── main.jsx                            # React entry point
-│   └── index.css                           # Tailwind CSS theme variables & styling
-├── index.html
-├── vite.config.js
-└── package.json
 ```
 
 ---
 
 ## 📜 License
 
-This project is licensed under the [MIT License](LICENSE).
+Licensed under the [MIT License](LICENSE).

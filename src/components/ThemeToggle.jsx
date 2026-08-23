@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react'
 import { Moon, Sun } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ onToggle }) {
   const [dark, setDark] = useState(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('theme')
       if (stored) return stored === 'dark'
       return window.matchMedia('(prefers-color-scheme: dark)').matches
     }
-    return false
+    return true
   })
 
   useEffect(() => {
@@ -23,11 +23,17 @@ export default function ThemeToggle() {
     }
   }, [dark])
 
+  const handleToggle = () => {
+    setDark(!dark)
+    if (onToggle) onToggle()
+  }
+
   return (
     <button
-      onClick={() => setDark(!dark)}
-      className="relative p-2 rounded-lg hover:bg-secondary/50 text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
-      aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+      onClick={handleToggle}
+      className="relative p-1.5 rounded-md hover:bg-white/10 text-white/90 hover:text-white transition-colors cursor-pointer flex items-center justify-center"
+      aria-label={dark ? 'Switch to Pokédex Classic Light Mode' : 'Switch to Pokédex Cyber Dark Mode'}
+      title={dark ? 'Mode: Night Pokédex (Click for Classic Day)' : 'Mode: Day Pokédex (Click for Cyber Night)'}
     >
       <AnimatePresence mode="wait" initial={false}>
         {dark ? (
@@ -37,8 +43,9 @@ export default function ThemeToggle() {
             animate={{ rotate: 0, opacity: 1, scale: 1 }}
             exit={{ rotate: 90, opacity: 0, scale: 0.6 }}
             transition={{ duration: 0.2 }}
+            className="text-amber-300"
           >
-            <Sun size={18} />
+            <Sun size={17} />
           </motion.div>
         ) : (
           <motion.div
@@ -47,8 +54,9 @@ export default function ThemeToggle() {
             animate={{ rotate: 0, opacity: 1, scale: 1 }}
             exit={{ rotate: -90, opacity: 0, scale: 0.6 }}
             transition={{ duration: 0.2 }}
+            className="text-sky-300"
           >
-            <Moon size={18} />
+            <Moon size={17} />
           </motion.div>
         )}
       </AnimatePresence>
