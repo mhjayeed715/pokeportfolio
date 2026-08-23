@@ -1,13 +1,12 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ExternalLink, Trophy, Swords, X, Play, Code2, Sparkles, ChevronRight, Layers, Box, LayoutGrid, SlidersHorizontal } from 'lucide-react'
+import { ExternalLink, Trophy, Swords, X, Play, Code2, Sparkles, ChevronRight, Layers, Box } from 'lucide-react'
 import { soundFx } from '../utils/sound'
 import { projectsData } from '../data/projects'
 import PokeBallIcon from './PokeBallIcon'
 import TypeBadge from './TypeBadge'
 import HPBar from './HPBar'
 import SummaryScreenModal from './SummaryScreenModal'
-import MagneticProjectCarousel from './MagneticProjectCarousel'
 
 const GitHubIcon = ({ className }) => (
   <svg viewBox="0 0 24 24" className={className} fill="currentColor">
@@ -16,7 +15,6 @@ const GitHubIcon = ({ className }) => (
 )
 
 export default function Projects() {
-  const [viewMode, setViewMode] = useState('magnetic') // 'magnetic' | 'grid'
   const [showBoxArchive, setShowBoxArchive] = useState(false)
   const [selectedProject, setSelectedProject] = useState(null)
 
@@ -38,247 +36,189 @@ export default function Projects() {
   return (
     <section id="projects" className="py-24 relative overflow-visible">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        {/* Header with View Mode Switcher */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex items-center gap-3 mb-2">
-              <span className="font-heading text-xs font-bold text-primary px-2.5 py-1 rounded bg-primary/10 border border-primary/20">
-                ACTIVE PARTY [ {displayedProjects.length} / {projectsData.length} ]
-              </span>
-              <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest font-semibold">
-                POKÉMON PARTY SCREEN & DOCK
-              </span>
-            </div>
-            <h2 className="font-heading text-3xl sm:text-4xl font-black text-foreground">
-              Trainer Team <span className="gradient-text">(Party Screen)</span>
-            </h2>
-            <p className="text-sm text-muted-foreground font-sans mt-1">
-              Hover across the magnetic dock to magnify or click any party slot to launch the full multi-tab Pokémon Summary Screen.
-            </p>
-          </motion.div>
-
-          {/* View Mode Toggle */}
-          <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-secondary border border-border shrink-0 self-start md:self-auto">
-            <button
-              onClick={() => {
-                soundFx.playSelect()
-                setViewMode('magnetic')
-              }}
-              className={`px-3.5 py-2 rounded-xl font-heading text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'magnetic'
-                  ? 'bg-primary text-white shadow-md'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              <SlidersHorizontal size={14} />
-              <span>MAGNETIC DOCK</span>
-            </button>
-
-            <button
-              onClick={() => {
-                soundFx.playSelect()
-                setViewMode('grid')
-              }}
-              className={`px-3.5 py-2 rounded-xl font-heading text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer ${
-                viewMode === 'grid'
-                  ? 'bg-primary text-white shadow-md'
-                  : 'text-muted-foreground hover:text-foreground'
-              }`}
-            >
-              <LayoutGrid size={14} />
-              <span>PARTY GRID</span>
-            </button>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mb-14"
+        >
+          <div className="flex items-center gap-3 mb-2">
+            <span className="font-heading text-xs font-bold text-primary px-2.5 py-1 rounded bg-primary/10 border border-primary/20">
+              ACTIVE PARTY [ {displayedProjects.length} / {projectsData.length} ]
+            </span>
+            <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest font-semibold">
+              POKÉMON PARTY SCREEN & SUMMARY
+            </span>
           </div>
+          <h2 className="font-heading text-3xl sm:text-4xl font-black text-foreground">
+            Trainer Team <span className="gradient-text">(Party Screen)</span>
+          </h2>
+          <p className="text-sm text-muted-foreground font-sans mt-1">
+            Click any party slot to launch the multi-tab Pokémon Summary Screen (Info, Moves, Ribbons, Stats) with live battle actions.
+          </p>
+        </motion.div>
+
+        {/* Pokémon Party Grid (Max 6 in Active Party) */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {displayedProjects.map((project, idx) => {
+            const isVariant = project.isVariantTheme && project.variantTheme
+
+            return (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.08 }}
+                onClick={() => handleOpenSummary(project)}
+                className="group relative rounded-3xl border-2 border-border bg-card p-5 sm:p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-visible flex flex-col justify-between"
+                style={{
+                  borderColor: isVariant ? project.variantTheme.primary : undefined,
+                  boxShadow: isVariant ? `0 8px 30px ${project.variantTheme.glow}` : undefined,
+                }}
+              >
+                <div>
+                  {/* Party Slot Top Ribbon */}
+                  <div className="flex items-start justify-between gap-3 mb-4 pb-3 border-b border-border">
+                    <div className="flex items-center gap-3">
+                      {/* Poké Ball Tier Icon */}
+                      <div className="shrink-0 group-hover:rotate-12 transition-transform">
+                        <PokeBallIcon type={project.ballType || 'pokeball'} size={28} />
+                      </div>
+                      <div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-mono text-xs font-bold text-primary">
+                            {project.speciesNumber}
+                          </span>
+                          <h3 className="font-heading text-lg font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
+                            {project.title}
+                          </h3>
+                        </div>
+                        <p className="text-xs text-muted-foreground font-sans mt-0.5 truncate max-w-[200px]">
+                          {project.subtitle}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Level Badge */}
+                    <div className="shrink-0 text-right">
+                      <span className="font-pixel text-[8px] font-bold text-primary px-2 py-0.5 rounded bg-primary/10 border border-primary/20">
+                        LV.{project.level || 100}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Contest Ribbon if present */}
+                  {project.ribbon && (
+                    <div className="mb-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-heading font-bold">
+                      <Trophy size={13} className="shrink-0 text-amber-500" />
+                      <span>{project.ribbon}</span>
+                    </div>
+                  )}
+
+                  {/* Screenshot Viewport */}
+                  <div className="relative aspect-video rounded-2xl overflow-hidden border border-border bg-secondary mb-4 group-hover:border-primary/50 transition-colors shadow-inner">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading={idx < 3 ? 'eager' : 'lazy'}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
+                      <span className="font-heading text-xs font-bold text-white flex items-center gap-2">
+                        <Swords size={14} className="text-amber-400" />
+                        OPEN SUMMARY SCREEN (A)
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* In-Battle HP/PWR Bar */}
+                  <div className="mb-4 p-2.5 rounded-2xl bg-secondary/80 border border-border">
+                    <HPBar value={project.stats?.hp || 95} max={100} label="PWR" size="sm" showValues={false} />
+                  </div>
+
+                  {/* Elemental Types */}
+                  <div className="flex flex-wrap gap-1.5 mb-3">
+                    {project.types.map((typeName) => (
+                      <TypeBadge key={typeName} type={typeName} size="sm" />
+                    ))}
+                  </div>
+
+                  {/* Description */}
+                  <p className="font-sans text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-4">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Bottom Action Footer */}
+                <div className="pt-3 border-t border-border flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    {project.tech.map((t) => (
+                      <div key={t.name} className="w-6 h-6 rounded-lg bg-secondary p-1 border border-border shrink-0" title={t.name}>
+                        <img src={t.icon} alt={t.name} className="w-full h-full object-contain" />
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          soundFx.playSelect()
+                        }}
+                        className="p-2 rounded-xl border border-border bg-secondary hover:border-primary text-muted-foreground hover:text-foreground transition-colors"
+                        title="View Source Code on GitHub"
+                      >
+                        <GitHubIcon className="w-4 h-4" />
+                      </a>
+                    )}
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          soundFx.playSelect()
+                        }}
+                        className="retro-btn retro-btn-primary px-3 py-1.5 text-xs flex items-center gap-1"
+                        title="Launch Live Application"
+                      >
+                        <span>Live</span>
+                        <ExternalLink size={11} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
 
-        {/* 1. View Mode: Magnetic Dock Showcase */}
-        {viewMode === 'magnetic' && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="w-full rounded-3xl border-2 border-border bg-card/60 p-4 sm:p-6 shadow-xl mb-6"
-          >
-            <MagneticProjectCarousel
-              projects={projectsData}
-              onOpenSummary={handleOpenSummary}
-            />
-          </motion.div>
-        )}
-
-        {/* 2. View Mode: Classic Pokémon Party Grid */}
-        {viewMode === 'grid' && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="space-y-12"
-          >
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {displayedProjects.map((project, idx) => {
-                const isVariant = project.isVariantTheme && project.variantTheme
-
-                return (
-                  <motion.div
-                    key={project.id}
-                    initial={{ opacity: 0, y: 25 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.08 }}
-                    onClick={() => handleOpenSummary(project)}
-                    className="group relative rounded-3xl border-2 border-border bg-card p-5 sm:p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-visible flex flex-col justify-between"
-                    style={{
-                      borderColor: isVariant ? project.variantTheme.primary : undefined,
-                      boxShadow: isVariant ? `0 8px 30px ${project.variantTheme.glow}` : undefined,
-                    }}
-                  >
-                    <div>
-                      {/* Party Slot Top Ribbon */}
-                      <div className="flex items-start justify-between gap-3 mb-4 pb-3 border-b border-border">
-                        <div className="flex items-center gap-3">
-                          {/* Poké Ball Tier Icon */}
-                          <div className="shrink-0 group-hover:rotate-12 transition-transform">
-                            <PokeBallIcon type={project.ballType || 'pokeball'} size={28} />
-                          </div>
-                          <div>
-                            <div className="flex items-center gap-2">
-                              <span className="font-mono text-xs font-bold text-primary">
-                                {project.speciesNumber}
-                              </span>
-                              <h3 className="font-heading text-lg font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
-                                {project.title}
-                              </h3>
-                            </div>
-                            <p className="text-xs text-muted-foreground font-sans mt-0.5 truncate max-w-[200px]">
-                              {project.subtitle}
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Level Badge */}
-                        <div className="shrink-0 text-right">
-                          <span className="font-pixel text-[8px] font-bold text-primary px-2 py-0.5 rounded bg-primary/10 border border-primary/20">
-                            LV.{project.level || 100}
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* Contest Ribbon if present */}
-                      {project.ribbon && (
-                        <div className="mb-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-heading font-bold">
-                          <Trophy size={13} className="shrink-0 text-amber-500" />
-                          <span>{project.ribbon}</span>
-                        </div>
-                      )}
-
-                      {/* Screenshot Viewport */}
-                      <div className="relative aspect-video rounded-2xl overflow-hidden border border-border bg-secondary mb-4 group-hover:border-primary/50 transition-colors shadow-inner">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading={idx < 3 ? 'eager' : 'lazy'}
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
-                          <span className="font-heading text-xs font-bold text-white flex items-center gap-2">
-                            <Swords size={14} className="text-amber-400" />
-                            OPEN SUMMARY SCREEN (A)
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* In-Battle HP/PWR Bar */}
-                      <div className="mb-4 p-2.5 rounded-2xl bg-secondary/80 border border-border">
-                        <HPBar value={project.stats?.hp || 95} max={100} label="PWR" size="sm" showValues={false} />
-                      </div>
-
-                      {/* Elemental Types */}
-                      <div className="flex flex-wrap gap-1.5 mb-3">
-                        {project.types.map((typeName) => (
-                          <TypeBadge key={typeName} type={typeName} size="sm" />
-                        ))}
-                      </div>
-
-                      {/* Description */}
-                      <p className="font-sans text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-4">
-                        {project.description}
-                      </p>
-                    </div>
-
-                    {/* Bottom Action Footer */}
-                    <div className="pt-3 border-t border-border flex items-center justify-between">
-                      <div className="flex items-center gap-1.5">
-                        {project.tech.map((t) => (
-                          <div key={t.name} className="w-6 h-6 rounded-lg bg-secondary p-1 border border-border shrink-0" title={t.name}>
-                            <img src={t.icon} alt={t.name} className="w-full h-full object-contain" />
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        {project.github && (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              soundFx.playSelect()
-                            }}
-                            className="p-2 rounded-xl border border-border bg-secondary hover:border-primary text-muted-foreground hover:text-foreground transition-colors"
-                            title="View Source Code on GitHub"
-                          >
-                            <GitHubIcon className="w-4 h-4" />
-                          </a>
-                        )}
-                        {project.live && (
-                          <a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => {
-                              e.stopPropagation()
-                              soundFx.playSelect()
-                            }}
-                            className="retro-btn retro-btn-primary px-3 py-1.5 text-xs flex items-center gap-1"
-                            title="Launch Live Application"
-                          >
-                            <span>Live</span>
-                            <ExternalLink size={11} />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-                  </motion.div>
-                )
-              })}
-            </div>
-
-            {/* Expand / PC Box Storage Switcher */}
-            {boxProjects.length > 0 && (
-              <div className="flex justify-center pt-2">
-                <button
-                  onClick={() => {
-                    soundFx.playSelect()
-                    setShowBoxArchive(!showBoxArchive)
-                  }}
-                  className="retro-btn retro-btn-secondary px-6 py-3 text-xs flex items-center gap-2"
-                >
-                  <Box size={16} />
-                  <span>
-                    {showBoxArchive
-                      ? 'Show Active Party Only (6 Slots)'
-                      : `Open Bill's PC Storage Box (+${boxProjects.length} Archived Projects)`}
-                  </span>
-                </button>
-              </div>
-            )}
-          </motion.div>
+        {/* Expand / PC Box Storage Switcher */}
+        {boxProjects.length > 0 && (
+          <div className="mt-12 flex justify-center">
+            <button
+              onClick={() => {
+                soundFx.playSelect()
+                setShowBoxArchive(!showBoxArchive)
+              }}
+              className="retro-btn retro-btn-secondary px-6 py-3 text-xs flex items-center gap-2"
+            >
+              <Box size={16} />
+              <span>
+                {showBoxArchive
+                  ? 'Show Active Party Only (6 Slots)'
+                  : `Open Bill's PC Storage Box (+${boxProjects.length} Archived Projects)`}
+              </span>
+            </button>
+          </div>
         )}
 
         {/* Multi-Tab Summary Screen Lightbox Modal */}
