@@ -34,34 +34,34 @@ export default function Projects() {
   }
 
   return (
-    <section id="projects" className="py-24 relative overflow-visible">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
+    <section id="projects" className="py-14 sm:py-24 relative overflow-visible">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-14"
+          className="mb-8 sm:mb-14"
         >
-          <div className="flex items-center gap-3 mb-2">
-            <span className="font-heading text-xs font-bold text-primary px-2.5 py-1 rounded bg-primary/10 border border-primary/20">
+          <div className="flex items-center gap-2 sm:gap-3 mb-2">
+            <span className="font-heading text-[10px] sm:text-xs font-bold text-primary px-2.5 py-0.5 rounded bg-primary/10 border border-primary/20">
               ACTIVE PARTY [ {displayedProjects.length} / {projectsData.length} ]
             </span>
-            <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest font-semibold">
-              POKÉMON PARTY SCREEN & SUMMARY
+            <span className="text-[10px] sm:text-xs font-mono text-muted-foreground uppercase tracking-widest font-semibold">
+              PARTY SCREEN & SUMMARY
             </span>
           </div>
-          <h2 className="font-heading text-3xl sm:text-4xl font-black text-foreground">
+          <h2 className="font-heading text-2xl sm:text-4xl font-black text-foreground">
             Trainer Team <span className="gradient-text">(Party Screen)</span>
           </h2>
-          <p className="text-sm text-muted-foreground font-sans mt-1">
+          <p className="text-xs sm:text-sm text-muted-foreground font-sans mt-1">
             Click any party slot to launch the multi-tab Pokémon Summary Screen (Info, Moves, Ribbons, Stats) with live battle actions.
           </p>
         </motion.div>
 
         {/* Pokémon Party Grid (Max 6 in Active Party) */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {displayedProjects.map((project, idx) => {
             const isVariant = project.isVariantTheme && project.variantTheme
 
@@ -73,7 +73,7 @@ export default function Projects() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: idx * 0.08 }}
                 onClick={() => handleOpenSummary(project)}
-                className="group relative rounded-3xl border-2 border-border bg-card p-5 sm:p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-visible flex flex-col justify-between"
+                className="group relative rounded-3xl border-2 border-border bg-card p-4 sm:p-6 shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1.5 cursor-pointer overflow-visible flex flex-col justify-between"
                 style={{
                   borderColor: isVariant ? project.variantTheme.primary : undefined,
                   boxShadow: isVariant ? `0 8px 30px ${project.variantTheme.glow}` : undefined,
@@ -81,22 +81,22 @@ export default function Projects() {
               >
                 <div>
                   {/* Party Slot Top Ribbon */}
-                  <div className="flex items-start justify-between gap-3 mb-4 pb-3 border-b border-border">
-                    <div className="flex items-center gap-3">
+                  <div className="flex items-start justify-between gap-2.5 mb-3 sm:mb-4 pb-2.5 sm:pb-3 border-b border-border">
+                    <div className="flex items-center gap-2.5 min-w-0 flex-1">
                       {/* Poké Ball Tier Icon */}
                       <div className="shrink-0 group-hover:rotate-12 transition-transform">
-                        <PokeBallIcon type={project.ballType || 'pokeball'} size={28} />
+                        <PokeBallIcon type={project.ballType || 'pokeball'} size={26} />
                       </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="font-mono text-xs font-bold text-primary">
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                          <span className="font-mono text-[11px] sm:text-xs font-bold text-primary">
                             {project.speciesNumber}
                           </span>
-                          <h3 className="font-heading text-lg font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
+                          <h3 className="font-heading text-base sm:text-lg font-bold text-foreground group-hover:text-primary transition-colors leading-tight truncate">
                             {project.title}
                           </h3>
                         </div>
-                        <p className="text-xs text-muted-foreground font-sans mt-0.5 truncate max-w-[200px]">
+                        <p className="text-[11px] sm:text-xs text-muted-foreground font-sans mt-0.5 truncate">
                           {project.subtitle}
                         </p>
                       </div>
@@ -104,7 +104,7 @@ export default function Projects() {
 
                     {/* Level Badge */}
                     <div className="shrink-0 text-right">
-                      <span className="font-pixel text-[8px] font-bold text-primary px-2 py-0.5 rounded bg-primary/10 border border-primary/20">
+                      <span className="font-pixel text-[7px] sm:text-[8px] font-bold text-primary px-2 py-0.5 rounded bg-primary/10 border border-primary/20">
                         LV.{project.level || 100}
                       </span>
                     </div>
@@ -112,14 +112,14 @@ export default function Projects() {
 
                   {/* Contest Ribbon if present */}
                   {project.ribbon && (
-                    <div className="mb-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-xs font-heading font-bold">
+                    <div className="mb-3 inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-600 dark:text-amber-400 text-[11px] sm:text-xs font-heading font-bold max-w-full">
                       <Trophy size={13} className="shrink-0 text-amber-500" />
-                      <span>{project.ribbon}</span>
+                      <span className="truncate">{project.ribbon}</span>
                     </div>
                   )}
 
                   {/* Screenshot Viewport */}
-                  <div className="relative aspect-video rounded-2xl overflow-hidden border border-border bg-secondary mb-4 group-hover:border-primary/50 transition-colors shadow-inner">
+                  <div className="relative aspect-video rounded-2xl overflow-hidden border border-border bg-secondary mb-3.5 group-hover:border-primary/50 transition-colors shadow-inner">
                     <img
                       src={project.image}
                       alt={project.title}
@@ -135,34 +135,34 @@ export default function Projects() {
                   </div>
 
                   {/* In-Battle HP/PWR Bar */}
-                  <div className="mb-4 p-2.5 rounded-2xl bg-secondary/80 border border-border">
+                  <div className="mb-3.5 p-2.5 rounded-2xl bg-secondary/80 border border-border">
                     <HPBar value={project.stats?.hp || 95} max={100} label="PWR" size="sm" showValues={false} />
                   </div>
 
                   {/* Elemental Types */}
-                  <div className="flex flex-wrap gap-1.5 mb-3">
+                  <div className="flex flex-wrap gap-1.5 mb-2.5">
                     {project.types.map((typeName) => (
                       <TypeBadge key={typeName} type={typeName} size="sm" />
                     ))}
                   </div>
 
                   {/* Description */}
-                  <p className="font-sans text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-4">
+                  <p className="font-sans text-xs text-muted-foreground leading-relaxed line-clamp-2 mb-3.5">
                     {project.description}
                   </p>
                 </div>
 
                 {/* Bottom Action Footer */}
-                <div className="pt-3 border-t border-border flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
-                    {project.tech.map((t) => (
+                <div className="pt-2.5 sm:pt-3 border-t border-border flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5 overflow-hidden">
+                    {project.tech.slice(0, 4).map((t) => (
                       <div key={t.name} className="w-6 h-6 rounded-lg bg-secondary p-1 border border-border shrink-0" title={t.name}>
                         <img src={t.icon} alt={t.name} className="w-full h-full object-contain" />
                       </div>
                     ))}
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5 shrink-0">
                     {project.github && (
                       <a
                         href={project.github}
@@ -172,7 +172,7 @@ export default function Projects() {
                           e.stopPropagation()
                           soundFx.playSelect()
                         }}
-                        className="p-2 rounded-xl border border-border bg-secondary hover:border-primary text-muted-foreground hover:text-foreground transition-colors"
+                        className="p-2 rounded-xl border border-border bg-secondary hover:border-primary text-muted-foreground hover:text-foreground transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
                         title="View Source Code on GitHub"
                       >
                         <GitHubIcon className="w-4 h-4" />
@@ -187,7 +187,7 @@ export default function Projects() {
                           e.stopPropagation()
                           soundFx.playSelect()
                         }}
-                        className="retro-btn retro-btn-primary px-3 py-1.5 text-xs flex items-center gap-1"
+                        className="retro-btn retro-btn-primary px-3 py-1.5 text-xs flex items-center gap-1 min-h-[36px]"
                         title="Launch Live Application"
                       >
                         <span>Live</span>
@@ -203,13 +203,13 @@ export default function Projects() {
 
         {/* Expand / PC Box Storage Switcher */}
         {boxProjects.length > 0 && (
-          <div className="mt-12 flex justify-center">
+          <div className="mt-8 sm:mt-12 flex justify-center">
             <button
               onClick={() => {
                 soundFx.playSelect()
                 setShowBoxArchive(!showBoxArchive)
               }}
-              className="retro-btn retro-btn-secondary px-6 py-3 text-xs flex items-center gap-2"
+              className="retro-btn retro-btn-secondary px-4 sm:px-6 py-3 text-xs flex items-center gap-2 text-center"
             >
               <Box size={16} />
               <span>

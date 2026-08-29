@@ -55,33 +55,33 @@ export default function BootSequence({ onComplete }) {
       initial={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6 }}
-      className="fixed inset-0 z-50 bg-[#06090f] text-[#38BDF8] flex flex-col items-center justify-center p-4 sm:p-6 overflow-hidden select-none"
+      className="fixed inset-0 z-50 bg-[#06090f] text-[#38BDF8] flex flex-col items-center justify-center p-3 sm:p-6 overflow-hidden select-none"
     >
       {/* Main Pokédex Boot Screen Hardware Frame */}
-      <div className="relative w-full max-w-2xl border-4 border-red-600/50 bg-[#0c1017] rounded-3xl p-6 sm:p-8 shadow-[0_0_70px_rgba(220,38,38,0.45)] overflow-hidden text-white">
+      <div className="relative w-full max-w-2xl border-3 sm:border-4 border-red-600/50 bg-[#0c1017] rounded-3xl p-4 sm:p-8 shadow-[0_0_70px_rgba(220,38,38,0.45)] overflow-hidden text-white">
         {/* Top Hardware Header with Big Blue Lens & LEDs */}
-        <div className="flex items-center justify-between border-b border-slate-800 pb-4 mb-6">
-          <div className="flex items-center gap-3.5">
+        <div className="flex items-center justify-between border-b border-slate-800 pb-3 sm:pb-4 mb-4 sm:mb-6">
+          <div className="flex items-center gap-2.5 sm:gap-3.5">
             {/* Lens Shell */}
-            <div className="brand-lens-shell w-12 h-12 p-1 flex items-center justify-center shadow-lg">
+            <div className="brand-lens-shell w-9 h-9 sm:w-12 sm:h-12 p-0.5 sm:p-1 flex items-center justify-center shadow-lg">
               <div className="brand-lens w-full h-full relative overflow-hidden flex items-center justify-center">
-                <div className="w-3.5 h-3.5 rounded-full bg-white opacity-90 absolute top-1 left-1" />
+                <div className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 rounded-full bg-white opacity-90 absolute top-1 left-1" />
               </div>
             </div>
             {/* 3 mini status LEDs */}
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-[#ff3b30] border border-black/60 shadow-[0_0_8px_#ff3b30] animate-pulse" />
-              <div className="w-3 h-3 rounded-full bg-[#fc0] border border-black/60 shadow-[0_0_8px_#fc0]" />
-              <div className="w-3 h-3 rounded-full bg-[#2aff7c] border border-black/60 shadow-[0_0_8px_#2aff7c] animate-pulse" />
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff3b30] border border-black/60 shadow-[0_0_8px_#ff3b30] animate-pulse" />
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#fc0] border border-black/60 shadow-[0_0_8px_#fc0]" />
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#2aff7c] border border-black/60 shadow-[0_0_8px_#2aff7c] animate-pulse" />
             </div>
           </div>
-          <div className="font-heading text-xs tracking-widest text-slate-400 font-bold">
-            PROF. OAK'S LAB // SILPH CO.
+          <div className="font-heading text-[10px] sm:text-xs tracking-widest text-slate-400 font-bold">
+            PROF. OAK // SILPH CO.
           </div>
         </div>
 
         {/* CRT Cyan Terminal Screen */}
-        <div className="min-h-[160px] sm:min-h-[180px] bg-[#04070e] border-2 border-slate-800 rounded-2xl p-5 mb-6 shadow-inner relative overflow-hidden">
+        <div className="min-h-[140px] sm:min-h-[180px] bg-[#04070e] border-2 border-slate-800 rounded-2xl p-3.5 sm:p-5 mb-4 sm:mb-6 shadow-inner relative overflow-hidden">
           <pre className="font-mono text-xs sm:text-sm leading-relaxed text-[#17f4c1] whitespace-pre-wrap">
             {typewriterText}
             <motion.span
@@ -93,24 +93,24 @@ export default function BootSequence({ onComplete }) {
         </div>
 
         {/* Action Button & Skip Prompt */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-1">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 pt-1">
           <button
             onClick={handleSkip}
-            className="font-heading text-xs text-slate-400 hover:text-white transition-colors cursor-pointer tracking-wider font-bold"
+            className="font-heading text-[11px] sm:text-xs text-slate-400 hover:text-white transition-colors cursor-pointer tracking-wider font-bold"
           >
-            [ TAP ANYWHERE OR CLICK TO SKIP ]
+            [ TAP ANYWHERE OR SKIP ]
           </button>
 
           <button
             onClick={handleOpenPokeball}
-            className="retro-btn retro-btn-primary px-6 py-3 text-xs flex items-center gap-2"
+            className="retro-btn retro-btn-primary px-5 sm:px-6 py-3 text-xs flex items-center justify-center gap-2 w-full sm:w-auto min-h-[44px]"
           >
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: 'linear' }}
               className="shrink-0"
             >
-              <PokeBallIcon type="master" size={20} />
+              <PokeBallIcon type="master" size={18} />
             </motion.div>
             <span>OPEN POKÉDEX (ENTER)</span>
           </button>

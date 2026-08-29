@@ -8,20 +8,20 @@ export default function TMCase() {
   const [selectedCert, setSelectedCert] = useState(null)
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between pb-3 border-b border-border">
         <div className="flex items-center gap-2">
-          <Disc size={20} className="text-primary" />
-          <h3 className="font-heading text-xl sm:text-2xl font-black text-foreground">
-            TM Case (Technical Machine Credentials)
+          <Disc size={18} className="text-primary shrink-0" />
+          <h3 className="font-heading text-lg sm:text-2xl font-black text-foreground">
+            TM Case (Technical Credentials)
           </h3>
         </div>
-        <span className="font-mono text-xs text-muted-foreground font-bold">[ 3 VERIFIED DISCS ]</span>
+        <span className="font-mono text-[11px] sm:text-xs text-muted-foreground font-bold">[ 3 DISCS ]</span>
       </div>
 
       {/* TM Discs Grid */}
-      <div className="grid md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
         {certificationsData.map((cert, idx) => {
           return (
             <motion.div
@@ -30,46 +30,46 @@ export default function TMCase() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className="rounded-3xl border-2 border-border bg-card p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
+              className="rounded-3xl border-2 border-border bg-card p-4 sm:p-6 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col justify-between"
             >
               <div>
                 {/* TM Disc Header */}
-                <div className="flex items-start justify-between gap-3 mb-4 pb-3 border-b border-border">
-                  <div className="flex items-center gap-3">
+                <div className="flex items-start justify-between gap-2.5 mb-3 sm:mb-4 pb-2.5 sm:pb-3 border-b border-border">
+                  <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
                     {/* TM Disc Disc Badge */}
                     <div
-                      className="w-12 h-12 rounded-full flex items-center justify-center font-heading text-xs font-bold text-white shadow-md relative overflow-hidden shrink-0 group-hover:rotate-45 transition-transform"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center font-heading text-xs font-bold text-white shadow-md relative overflow-hidden shrink-0 group-hover:rotate-45 transition-transform"
                       style={{ backgroundColor: cert.discColor }}
                     >
-                      <Disc size={24} className="animate-spin" style={{ animationDuration: '8s' }} />
+                      <Disc size={20} className="animate-spin" style={{ animationDuration: '8s' }} />
                       <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent" />
                     </div>
-                    <div>
-                      <span className="font-mono text-xs font-bold text-primary">
+                    <div className="min-w-0 flex-1">
+                      <span className="font-mono text-[10px] sm:text-xs font-bold text-primary block truncate">
                         {cert.tmNumber} // {cert.badge}
                       </span>
-                      <h4 className="font-heading text-base font-bold text-foreground leading-tight">
+                      <h4 className="font-heading text-sm sm:text-base font-bold text-foreground leading-tight truncate">
                         {cert.title}
                       </h4>
                     </div>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 mb-3 text-xs text-muted-foreground font-mono">
-                  <ShieldCheck size={14} className="text-emerald-500" />
-                  <span>{cert.issuer}</span>
+                <div className="flex items-center gap-1.5 mb-2.5 sm:mb-3 text-xs text-muted-foreground font-mono">
+                  <ShieldCheck size={14} className="text-emerald-500 shrink-0" />
+                  <span className="truncate">{cert.issuer}</span>
                 </div>
 
-                <p className="text-xs sm:text-sm text-muted-foreground font-sans leading-relaxed mb-4">
+                <p className="text-xs sm:text-sm text-muted-foreground font-sans leading-relaxed mb-3 sm:mb-4">
                   {cert.description}
                 </p>
 
                 {/* Move Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
+                <div className="flex flex-wrap gap-1.5 mb-3 sm:mb-4">
                   {cert.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="font-heading text-[10px] px-2.5 py-0.5 rounded-md bg-secondary text-foreground font-bold border border-border"
+                      className="font-heading text-[9px] sm:text-[10px] px-2.5 py-0.5 rounded-md bg-secondary text-foreground font-bold border border-border"
                     >
                       {tag}
                     </span>
@@ -78,13 +78,13 @@ export default function TMCase() {
               </div>
 
               {/* Actions: Verify on Portal / Preview Disc */}
-              <div className="pt-3 border-t border-border flex items-center justify-between gap-2">
+              <div className="pt-2.5 sm:pt-3 border-t border-border flex items-center justify-between gap-2">
                 <a
                   href={cert.verifyUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => soundFx.playSelect()}
-                  className="retro-btn retro-btn-primary px-3.5 py-2 text-xs flex items-center gap-1.5"
+                  className="retro-btn retro-btn-primary px-3 sm:px-3.5 py-2 text-[11px] sm:text-xs flex items-center gap-1.5 min-h-[38px]"
                 >
                   <ShieldCheck size={13} />
                   <span>Verify</span>
@@ -96,10 +96,10 @@ export default function TMCase() {
                     soundFx.playOpen()
                     setSelectedCert(cert)
                   }}
-                  className="px-3 py-2 rounded-xl border border-border bg-secondary hover:border-primary font-heading text-xs font-bold text-foreground transition-colors flex items-center gap-1.5 cursor-pointer"
+                  className="px-3 py-2 rounded-xl border border-border bg-secondary hover:border-primary font-heading text-[11px] sm:text-xs font-bold text-foreground transition-colors flex items-center gap-1.5 cursor-pointer min-h-[38px]"
                 >
                   <ZoomIn size={13} className="text-primary" />
-                  <span>Inspect Disc</span>
+                  <span>Inspect</span>
                 </button>
               </div>
             </motion.div>
@@ -115,45 +115,45 @@ export default function TMCase() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedCert(null)}
-            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.9, opacity: 0, y: 20 }}
               onClick={(e) => e.stopPropagation()}
-              className="relative max-w-2xl w-full bg-card border-3 border-primary rounded-3xl shadow-2xl p-6 overflow-hidden text-foreground space-y-4"
+              className="relative max-w-2xl w-full bg-card border-3 border-primary rounded-3xl shadow-2xl p-4 sm:p-6 overflow-y-auto max-h-[90dvh] text-foreground space-y-4"
             >
-              <div className="flex items-start justify-between gap-4 pb-3 border-b border-border">
+              <div className="flex items-start justify-between gap-3 pb-3 border-b border-border">
                 <div>
-                  <span className="font-mono text-xs font-bold text-primary">
+                  <span className="font-mono text-[11px] sm:text-xs font-bold text-primary">
                     {selectedCert.tmNumber} // {selectedCert.badge}
                   </span>
-                  <h3 className="font-heading text-xl font-bold text-foreground mt-0.5">
+                  <h3 className="font-heading text-base sm:text-xl font-bold text-foreground mt-0.5">
                     {selectedCert.title}
                   </h3>
                   <p className="text-xs text-muted-foreground font-sans mt-0.5">{selectedCert.issuer}</p>
                 </div>
                 <button
                   onClick={() => setSelectedCert(null)}
-                  className="p-1.5 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer"
+                  className="p-1.5 rounded-xl border border-border text-muted-foreground hover:text-foreground hover:bg-secondary cursor-pointer min-h-[36px] min-w-[36px] flex items-center justify-center"
                 >
                   <X size={18} />
                 </button>
               </div>
 
               {/* Certificate Image Preview */}
-              <div className="rounded-2xl overflow-hidden border border-border bg-secondary max-h-[55vh] flex items-center justify-center">
+              <div className="rounded-2xl overflow-hidden border border-border bg-secondary max-h-[50vh] flex items-center justify-center">
                 <img
                   src={selectedCert.image}
                   alt={selectedCert.title}
-                  className="w-full h-auto max-h-[52vh] object-contain"
+                  className="w-full h-auto max-h-[48vh] object-contain"
                 />
               </div>
 
               {/* Actions */}
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
-                <p className="text-xs text-muted-foreground font-sans">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+                <p className="text-xs text-muted-foreground font-sans text-center sm:text-left">
                   Official credential issued by {selectedCert.issuer}.
                 </p>
                 <a
@@ -161,10 +161,10 @@ export default function TMCase() {
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => soundFx.playSelect()}
-                  className="retro-btn retro-btn-primary px-4 py-2 text-xs flex items-center justify-center gap-1.5"
+                  className="retro-btn retro-btn-primary px-4 py-2.5 text-xs flex items-center justify-center gap-1.5 min-h-[44px]"
                 >
                   <ShieldCheck size={13} />
-                  <span>Verify on Official Portal</span>
+                  <span>Verify on Portal</span>
                   <ExternalLink size={11} />
                 </a>
               </div>

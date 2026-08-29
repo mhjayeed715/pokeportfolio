@@ -103,7 +103,7 @@ export default function CatchSequence() {
   }
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-8 sm:space-y-12">
       {/* 1. Poké Ball Throw & Catch Arena (if not caught yet) */}
       {ballState !== 'caught' ? (
         <motion.div
@@ -111,13 +111,13 @@ export default function CatchSequence() {
           animate={{ opacity: 1, scale: 1 }}
           className="max-w-2xl mx-auto text-center"
         >
-          <div className="p-8 sm:p-10 rounded-3xl border-3 border-border bg-card shadow-2xl relative overflow-hidden space-y-6">
+          <div className="p-4 sm:p-8 sm:p-10 rounded-3xl border-3 border-border bg-card shadow-2xl relative overflow-hidden space-y-4 sm:space-y-6">
             {/* Inventory Selector */}
             <div>
-              <p className="font-heading text-xs font-bold text-muted-foreground uppercase tracking-widest mb-3">
+              <p className="font-heading text-[10px] sm:text-xs font-bold text-muted-foreground uppercase tracking-widest mb-2.5 sm:mb-3">
                 SELECT BALL FROM TRAINER INVENTORY:
               </p>
-              <div className="flex flex-wrap items-center justify-center gap-2">
+              <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
                 {ballOptions.map((ball) => {
                   const isSelected = selectedBall === ball.id
                   return (
@@ -129,14 +129,14 @@ export default function CatchSequence() {
                         soundFx.playBlip()
                         setSelectedBall(ball.id)
                       }}
-                      className={`px-3 py-1.5 rounded-xl border font-heading text-xs font-bold transition-all flex items-center gap-2 cursor-pointer ${
+                      className={`px-2.5 sm:px-3 py-1.5 rounded-xl border font-heading text-[11px] sm:text-xs font-bold transition-all flex items-center gap-1.5 sm:gap-2 cursor-pointer min-h-[38px] ${
                         isSelected
                           ? 'bg-primary/15 border-primary text-primary shadow-sm scale-105'
                           : 'bg-secondary border-border text-muted-foreground hover:text-foreground'
                       }`}
                       title={ball.desc}
                     >
-                      <PokeBallIcon type={ball.id} size={20} />
+                      <PokeBallIcon type={ball.id} size={18} />
                       <span>{ball.name}</span>
                     </button>
                   )
@@ -145,7 +145,7 @@ export default function CatchSequence() {
             </div>
 
             {/* Poké Ball Animated Visual */}
-            <div className="py-4 flex justify-center">
+            <div className="py-2 sm:py-4 flex justify-center">
               <motion.div
                 onClick={handleBallThrow}
                 animate={
@@ -162,16 +162,17 @@ export default function CatchSequence() {
                     ? { duration: 0.7 }
                     : { duration: 2.5, repeat: Infinity, ease: 'easeInOut' }
                 }
-                whileHover={ballState === 'idle' ? { scale: 1.15 } : {}}
+                whileHover={ballState === 'idle' ? { scale: 1.12 } : {}}
                 className="cursor-pointer transition-transform"
                 title="Click Poké Ball to Throw!"
               >
-                <PokeBallIcon type={selectedBall} size={110} />
+                <PokeBallIcon type={selectedBall} size={85} className="sm:hidden" />
+                <PokeBallIcon type={selectedBall} size={110} className="hidden sm:block" />
               </motion.div>
             </div>
 
             {/* Status Phase Text */}
-            <div className="min-h-[30px] font-heading font-bold text-base text-foreground">
+            <div className="min-h-[30px] font-heading font-bold text-sm sm:text-base text-foreground">
               {phaseText}
             </div>
 
@@ -179,7 +180,7 @@ export default function CatchSequence() {
             {ballState === 'idle' && (
               <button
                 onClick={handleBallThrow}
-                className="retro-btn retro-btn-primary px-8 py-3.5 text-xs inline-flex items-center gap-2"
+                className="retro-btn retro-btn-primary px-6 sm:px-8 py-3.5 text-xs inline-flex items-center gap-2 min-h-[44px]"
               >
                 <Zap size={15} className="text-yellow-200 fill-yellow-200" />
                 <span>THROW {selectedBall.toUpperCase()} BALL (A)</span>
@@ -203,23 +204,23 @@ export default function CatchSequence() {
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="space-y-10"
+            className="space-y-6 sm:space-y-10"
           >
             {/* Gotcha Banner */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-emerald-500/15 border-2 border-emerald-500/40 text-center font-heading text-sm sm:text-base text-emerald-600 dark:text-emerald-400 font-black flex items-center justify-center gap-2.5 shadow-lg">
-              <CheckCircle2 size={22} className="shrink-0" />
-              <span>GOTCHA! S. M. MEHRAB HOSSAIN JAYEED WAS CAUGHT! POKÉDEX COMMUNICATOR UNLOCKED.</span>
+            <div className="p-3.5 sm:p-5 rounded-2xl bg-emerald-500/15 border-2 border-emerald-500/40 text-center font-heading text-xs sm:text-base text-emerald-600 dark:text-emerald-400 font-black flex items-center justify-center gap-2 shadow-lg">
+              <CheckCircle2 size={20} className="shrink-0" />
+              <span>GOTCHA! JAYEED WAS CAUGHT! POKÉDEX COMMUNICATOR UNLOCKED.</span>
             </div>
 
-            <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-8 items-start">
+            <div className="grid lg:grid-cols-[1.2fr_0.8fr] gap-6 sm:gap-8 items-start">
               {/* Left: Naming Screen & Transmission Form */}
-              <div className="p-6 sm:p-8 rounded-3xl border-2 border-border bg-card shadow-xl space-y-6">
-                <div className="pb-4 border-b border-border">
+              <div className="p-4 sm:p-8 rounded-3xl border-2 border-border bg-card shadow-xl space-y-4 sm:space-y-6">
+                <div className="pb-3 sm:pb-4 border-b border-border">
                   <div className="flex items-center gap-2">
-                    <span className="font-pixel text-[8px] bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded font-bold">
+                    <span className="font-pixel text-[7px] sm:text-[8px] bg-amber-400 text-slate-950 px-1.5 py-0.5 rounded font-bold">
                       NAMING SCREEN
                     </span>
-                    <h3 className="font-heading text-xl font-black text-foreground">
+                    <h3 className="font-heading text-lg sm:text-xl font-black text-foreground">
                       Give a Nickname / Send Direct Message
                     </h3>
                   </div>
@@ -228,9 +229,9 @@ export default function CatchSequence() {
                   </p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4 font-sans text-xs">
+                <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4 font-sans text-xs">
                   <div>
-                    <label htmlFor="name" className="block font-heading text-xs font-bold text-foreground mb-1.5 uppercase">
+                    <label htmlFor="name" className="block font-heading text-[11px] sm:text-xs font-bold text-foreground mb-1 uppercase">
                       Trainer / Sender Name:
                     </label>
                     <input
@@ -241,12 +242,12 @@ export default function CatchSequence() {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="e.g. Ash Ketchum / Tech Recruiter / Client"
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/60 text-foreground text-sm focus:outline-none focus:border-primary transition-colors"
+                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-border bg-secondary/60 text-foreground text-sm focus:outline-none focus:border-primary transition-colors min-h-[44px]"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="nickname" className="block font-heading text-xs font-bold text-foreground mb-1.5 uppercase">
+                    <label htmlFor="nickname" className="block font-heading text-[11px] sm:text-xs font-bold text-foreground mb-1 uppercase">
                       Connection Nickname (Optional):
                     </label>
                     <input
@@ -256,12 +257,12 @@ export default function CatchSequence() {
                       value={formData.nickname}
                       onChange={handleChange}
                       placeholder="e.g. Full-Stack MVP Partner / AI Architect"
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/60 text-foreground text-sm focus:outline-none focus:border-primary transition-colors"
+                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-border bg-secondary/60 text-foreground text-sm focus:outline-none focus:border-primary transition-colors min-h-[44px]"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block font-heading text-xs font-bold text-foreground mb-1.5 uppercase">
+                    <label htmlFor="email" className="block font-heading text-[11px] sm:text-xs font-bold text-foreground mb-1 uppercase">
                       Transmission Email:
                     </label>
                     <input
@@ -272,12 +273,12 @@ export default function CatchSequence() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="trainer@silph.co"
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/60 text-foreground text-sm focus:outline-none focus:border-primary transition-colors"
+                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-border bg-secondary/60 text-foreground text-sm focus:outline-none focus:border-primary transition-colors min-h-[44px]"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block font-heading text-xs font-bold text-foreground mb-1.5 uppercase">
+                    <label htmlFor="message" className="block font-heading text-[11px] sm:text-xs font-bold text-foreground mb-1 uppercase">
                       Project Specifications / Challenge Lore:
                     </label>
                     <textarea
@@ -288,7 +289,7 @@ export default function CatchSequence() {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Hello Jayeed, we'd like to collaborate on an exciting software development project..."
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-secondary/60 text-foreground text-sm focus:outline-none focus:border-primary transition-colors resize-none"
+                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl border border-border bg-secondary/60 text-foreground text-sm focus:outline-none focus:border-primary transition-colors resize-none min-h-[100px]"
                     />
                   </div>
 
@@ -296,7 +297,7 @@ export default function CatchSequence() {
                     type="submit"
                     disabled={sending}
                     onClick={() => soundFx.playSelect()}
-                    className="retro-btn retro-btn-primary w-full py-3.5 text-xs flex items-center justify-center gap-2 disabled:opacity-60"
+                    className="retro-btn retro-btn-primary w-full py-3.5 text-xs flex items-center justify-center gap-2 disabled:opacity-60 min-h-[44px]"
                   >
                     {sending ? (
                       <span>TRANSMITTING MESSAGE...</span>
@@ -317,7 +318,7 @@ export default function CatchSequence() {
                         className="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-center font-heading font-bold text-xs flex items-center justify-center gap-2"
                       >
                         <CheckCircle2 size={16} />
-                        <span>Transmission confirmed! Trainer will review and reply promptly.</span>
+                        <span>Transmission confirmed! Trainer will reply promptly.</span>
                       </motion.div>
                     )}
                     {error && (
@@ -336,16 +337,16 @@ export default function CatchSequence() {
               </div>
 
               {/* Right: Trainer's PC Box Storage Endpoints */}
-              <div className="space-y-3">
-                <div className="pb-2 border-b border-border mb-4">
+              <div className="space-y-2.5 sm:space-y-3">
+                <div className="pb-2 border-b border-border mb-3 sm:mb-4">
                   <span className="font-mono text-xs text-primary font-bold">
                     BILL'S PC // NETWORK ENDPOINTS
                   </span>
-                  <h3 className="font-heading text-lg font-bold text-foreground mt-0.5">
+                  <h3 className="font-heading text-base sm:text-lg font-bold text-foreground mt-0.5">
                     Trainer's PC Box Storage
                   </h3>
                   <p className="text-xs text-muted-foreground font-sans">
-                    Real-time holocaster communication channels.
+                    Real-time communication channels.
                   </p>
                 </div>
 
@@ -365,26 +366,26 @@ export default function CatchSequence() {
                     <Wrapper
                       key={ch.id}
                       {...wrapperProps}
-                      className={`p-4 rounded-2xl border-2 border-border bg-card flex items-center justify-between gap-3 transition-all ${
+                      className={`p-3 sm:p-4 rounded-2xl border-2 border-border bg-card flex items-center justify-between gap-3 transition-all min-h-[48px] ${
                         ch.href ? 'hover:border-primary hover:bg-secondary/70 cursor-pointer shadow-sm' : ''
                       }`}
                     >
-                      <div className="flex items-center gap-3.5">
-                        <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                          <IconComponent size={18} />
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center shrink-0">
+                          <IconComponent size={17} />
                         </div>
-                        <div>
-                          <span className="font-mono text-[10px] text-muted-foreground uppercase font-bold">
+                        <div className="min-w-0 flex-1">
+                          <span className="font-mono text-[9px] sm:text-[10px] text-muted-foreground uppercase font-bold block">
                             {ch.pokedexLabel}
                           </span>
-                          <p className="text-xs sm:text-sm font-heading font-bold text-foreground mt-0.5">
+                          <p className="text-xs sm:text-sm font-heading font-bold text-foreground mt-0.5 truncate">
                             {ch.value}
                           </p>
                         </div>
                       </div>
 
                       {ch.href && (
-                        <ArrowUpRight size={16} className="text-muted-foreground" />
+                        <ArrowUpRight size={15} className="text-muted-foreground shrink-0" />
                       )}
                     </Wrapper>
                   )

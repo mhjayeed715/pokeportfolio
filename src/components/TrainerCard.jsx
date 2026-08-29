@@ -23,10 +23,11 @@ export default function TrainerCard() {
   const cardRef = useRef(null)
 
   const handleMouseMove = (e) => {
-    if (!cardRef.current) return
+    // Only apply tilt on pointer devices that support hover
+    if (!cardRef.current || (typeof window !== 'undefined' && !window.matchMedia('(hover: hover)').matches)) return
     const rect = cardRef.current.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 12
-    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -12
+    const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10
+    const y = ((e.clientY - rect.top) / rect.height - 0.5) * -10
     setCardTilt({ x, y })
   }
 
@@ -44,48 +45,48 @@ export default function TrainerCard() {
         rotateX: cardTilt.y,
       }}
       transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-      className="relative rounded-3xl border-3 border-amber-400/70 bg-card/95 text-foreground shadow-2xl p-6 sm:p-8 lg:p-10 overflow-hidden holo-sheen backdrop-blur-md"
+      className="relative rounded-3xl border-3 border-amber-400/70 bg-card/95 text-foreground shadow-2xl p-4 sm:p-7 lg:p-10 overflow-hidden holo-sheen backdrop-blur-md"
       style={{
         boxShadow: '0 20px 50px rgba(0, 0, 0, 0.25), 0 0 30px rgba(251, 191, 36, 0.2)',
       }}
     >
       {/* Metallic Gold Top Card Ribbon */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 mb-6 border-b-2 border-border">
-        <div className="flex items-center gap-3">
-          <div className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-heading font-black text-xs uppercase tracking-widest shadow-md flex items-center gap-2">
-            <PokeBallIcon type="master" size={18} />
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 mb-5 border-b-2 border-border">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+          <div className="px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-heading font-black text-[11px] sm:text-xs uppercase tracking-widest shadow-md flex items-center gap-2">
+            <PokeBallIcon type="master" size={16} />
             <span>OFFICIAL TRAINER CARD</span>
           </div>
-          <div className="font-mono text-xs text-primary font-bold tracking-wider">
+          <div className="font-mono text-[11px] sm:text-xs text-primary font-bold tracking-wider">
             IDNo. 00715 // KANTO REGION
           </div>
         </div>
 
         {/* Level Tag & Status Pill */}
         <div className="flex items-center gap-2">
-          <span className="font-heading text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
+          <span className="font-heading text-[11px] sm:text-xs font-bold px-2.5 sm:px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             READY FOR BATTLE
           </span>
-          <span className="font-pixel text-[9px] px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/30 font-bold">
+          <span className="font-pixel text-[8px] sm:text-[9px] px-2.5 sm:px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/30 font-bold">
             LV. 100
           </span>
         </div>
       </div>
 
       {/* Main Grid: Left Details & Badges | Right Photo / Video Hologram */}
-      <div className="grid lg:grid-cols-[1.3fr_0.85fr] gap-8 items-center">
+      <div className="grid lg:grid-cols-[1.3fr_0.85fr] gap-6 sm:gap-8 items-center">
         {/* Left Column */}
-        <div className="space-y-5">
+        <div className="space-y-4 sm:space-y-5">
           {/* Trainer Name & Class */}
           <div>
             <span className="font-heading text-xs font-bold text-primary tracking-widest uppercase mb-1 inline-block">
               CLASS: {trainerData.trainerClass}
             </span>
-            <h2 className="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-foreground tracking-tight leading-none">
+            <h2 className="font-heading font-black text-2xl sm:text-4xl lg:text-5xl text-foreground tracking-tight leading-tight">
               {trainerData.name}
             </h2>
-            <p className="font-mono text-xs text-muted-foreground mt-1">
+            <p className="font-mono text-[11px] sm:text-xs text-muted-foreground mt-1">
               AFFILIATION: SHANTO-MARIAM UNIVERSITY OF CREATIVE TECHNOLOGY
             </p>
           </div>
@@ -96,54 +97,54 @@ export default function TrainerCard() {
           </div>
 
           {/* Real Gen 3/4 Trainer Card Telemetry Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-secondary/60 border border-border font-mono text-xs">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 p-3.5 sm:p-4 rounded-2xl bg-secondary/60 border border-border font-mono text-xs">
             <div className="space-y-1">
-              <span className="text-muted-foreground text-[10px] uppercase font-bold tracking-wider">
+              <span className="text-muted-foreground text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">
                 POKÉDEX OWNED:
               </span>
-              <p className="font-heading text-base font-black text-foreground">
+              <p className="font-heading text-sm sm:text-base font-black text-foreground">
                 8 / 8 CAUGHT
               </p>
             </div>
             <div className="space-y-1">
-              <span className="text-muted-foreground text-[10px] uppercase font-bold tracking-wider">
+              <span className="text-muted-foreground text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">
                 TIME PLAYED:
               </span>
-              <p className="font-heading text-base font-black text-foreground">
+              <p className="font-heading text-sm sm:text-base font-black text-foreground">
                 3+ YEARS
               </p>
             </div>
             <div className="space-y-1 col-span-2 sm:col-span-1">
-              <span className="text-muted-foreground text-[10px] uppercase font-bold tracking-wider">
-                MONEY (¥):
+              <span className="text-muted-foreground text-[9px] sm:text-[10px] uppercase font-bold tracking-wider">
+                TECH MONIES:
               </span>
-              <p className="font-heading text-base font-black text-amber-500">
+              <p className="font-heading text-sm sm:text-base font-black text-amber-500">
                 20+ TECH TYPES
               </p>
             </div>
           </div>
 
           {/* Badges Collected Shelf (3 Competition Wins) */}
-          <div className="p-4 rounded-2xl bg-secondary/80 border border-border">
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-secondary/80 border border-border">
             <div className="flex items-center justify-between mb-3">
               <span className="font-heading text-xs font-bold text-foreground flex items-center gap-1.5">
-                <Trophy size={14} className="text-amber-500" />
+                <Trophy size={14} className="text-amber-500 shrink-0" />
                 <span>BADGES COLLECTED: [ 3 LEAGUE WINS ]</span>
               </span>
-              <span className="font-mono text-[10px] text-muted-foreground font-bold">ALL UNLOCKED</span>
+              <span className="font-mono text-[10px] text-muted-foreground font-bold shrink-0">ALL UNLOCKED</span>
             </div>
 
-            <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-3">
               {/* Badge 1: 2nd Place Showcase */}
               <div
                 onClick={() => soundFx.playVictory()}
-                className="p-2.5 rounded-xl bg-card border border-amber-400/40 hover:border-amber-400 transition-all cursor-pointer flex items-center gap-2 group"
+                className="p-2.5 rounded-xl bg-card border border-amber-400/40 hover:border-amber-400 transition-all cursor-pointer flex items-center gap-2 group min-h-[44px]"
                 title="2nd Place — Software Project Showcase 2026 (UniShareSync)"
               >
                 <div className="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-400 text-amber-500 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <Trophy size={16} />
+                  <Trophy size={15} />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="font-heading text-[11px] font-bold text-foreground truncate">Silver Prism</p>
                   <p className="text-[9px] text-muted-foreground font-mono">2nd Place '26</p>
                 </div>
@@ -152,13 +153,13 @@ export default function TrainerCard() {
               {/* Badge 2: Champion Project Showcasing */}
               <div
                 onClick={() => soundFx.playVictory()}
-                className="p-2.5 rounded-xl bg-card border border-emerald-400/40 hover:border-emerald-400 transition-all cursor-pointer flex items-center gap-2 group"
+                className="p-2.5 rounded-xl bg-card border border-emerald-400/40 hover:border-emerald-400 transition-all cursor-pointer flex items-center gap-2 group min-h-[44px]"
                 title="Champion — Project Showcasing 2025 (Team X)"
               >
                 <div className="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-400 text-emerald-500 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <Award size={16} />
+                  <Award size={15} />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="font-heading text-[11px] font-bold text-foreground truncate">Apex Victory</p>
                   <p className="text-[9px] text-muted-foreground font-mono">Champion '25</p>
                 </div>
@@ -167,13 +168,13 @@ export default function TrainerCard() {
               {/* Badge 3: Datathon ML */}
               <div
                 onClick={() => soundFx.playVictory()}
-                className="p-2.5 rounded-xl bg-card border border-indigo-400/40 hover:border-indigo-400 transition-all cursor-pointer flex items-center gap-2 group"
+                className="p-2.5 rounded-xl bg-card border border-indigo-400/40 hover:border-indigo-400 transition-all cursor-pointer flex items-center gap-2 group min-h-[44px]"
                 title="Datathon — ML Contest 2026 (Loan ML Pipeline)"
               >
                 <div className="w-8 h-8 rounded-lg bg-indigo-500/20 border border-indigo-400 text-indigo-400 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                  <Brain size={16} />
+                  <Brain size={15} />
                 </div>
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="font-heading text-[11px] font-bold text-foreground truncate">Cascade Mind</p>
                   <p className="text-[9px] text-muted-foreground font-mono">ML Contest '26</p>
                 </div>
@@ -182,11 +183,11 @@ export default function TrainerCard() {
           </div>
 
           {/* Action Row & Resume PDF */}
-          <div className="flex flex-wrap items-center gap-3 pt-1">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-2.5 sm:gap-3 pt-1">
             <a
               href="#projects"
               onClick={() => soundFx.playSelect()}
-              className="retro-btn retro-btn-primary px-5 py-3 text-xs flex items-center gap-2"
+              className="retro-btn retro-btn-primary px-5 py-3 text-xs flex items-center justify-center gap-2 min-h-[44px]"
             >
               <PokeBallIcon type="pokeball" size={18} />
               <span>Inspect Party (A)</span>
@@ -197,7 +198,7 @@ export default function TrainerCard() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => soundFx.playSelect()}
-              className="px-4 py-3 rounded-xl border border-border bg-secondary hover:border-primary text-foreground font-heading text-xs font-bold transition-colors flex items-center gap-1.5 cursor-pointer"
+              className="px-4 py-3 rounded-xl border border-border bg-secondary hover:border-primary text-foreground font-heading text-xs font-bold transition-colors flex items-center justify-center gap-1.5 cursor-pointer min-h-[44px]"
               title="Download Trainer ID (Resume PDF)"
             >
               <FileDown size={14} />
@@ -205,13 +206,13 @@ export default function TrainerCard() {
             </a>
 
             {/* Socials */}
-            <div className="flex items-center gap-2 pl-2">
+            <div className="flex items-center justify-center gap-2 pt-1 sm:pt-0 sm:pl-2">
               <a
                 href={trainerData.socials.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => soundFx.playBlip()}
-                className="p-2.5 rounded-xl bg-secondary border border-border text-muted-foreground hover:text-foreground hover:border-primary transition-all"
+                className="p-3 rounded-xl bg-secondary border border-border text-muted-foreground hover:text-foreground hover:border-primary transition-all min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="GitHub"
               >
                 <GitHubIcon className="w-4 h-4" />
@@ -221,7 +222,7 @@ export default function TrainerCard() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => soundFx.playBlip()}
-                className="p-2.5 rounded-xl bg-secondary border border-border text-muted-foreground hover:text-foreground hover:border-primary transition-all"
+                className="p-3 rounded-xl bg-secondary border border-border text-muted-foreground hover:text-foreground hover:border-primary transition-all min-h-[44px] min-w-[44px] flex items-center justify-center"
                 aria-label="LinkedIn"
               >
                 <LinkedInIcon className="w-4 h-4" />
@@ -231,11 +232,11 @@ export default function TrainerCard() {
         </div>
 
         {/* Right Column: Holographic Video Frame with profilevid.webm */}
-        <div className="flex justify-center">
-          <div className="relative w-full max-w-[280px] sm:max-w-[320px]">
+        <div className="flex justify-center pt-2 sm:pt-0">
+          <div className="relative w-full max-w-[260px] sm:max-w-[300px]">
             {/* Elemental Gradient Aura Ring */}
             <motion.div
-              className="absolute -inset-3 rounded-3xl pointer-events-none opacity-50 dark:opacity-40"
+              className="absolute -inset-2.5 rounded-3xl pointer-events-none opacity-50 dark:opacity-40"
               style={{
                 background: 'conic-gradient(from 0deg, #dc2626, #f59e0b, #0284c7, #10b981, #8b5cf6, #dc2626)',
               }}
@@ -259,12 +260,12 @@ export default function TrainerCard() {
               <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.3)_50%)] bg-[length:100%_4px] opacity-40" />
 
               {/* Corner Telemetry Overlay */}
-              <div className="absolute top-3 left-3 bg-black/80 text-amber-300 px-2.5 py-1 rounded-lg font-heading text-[10px] font-bold border border-amber-400/40 z-10 flex items-center gap-1.5">
+              <div className="absolute top-2.5 left-2.5 bg-black/80 text-amber-300 px-2.5 py-1 rounded-lg font-heading text-[9px] sm:text-[10px] font-bold border border-amber-400/40 z-10 flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                 <span>TRAINER #00715</span>
               </div>
 
-              <div className="absolute bottom-3 right-3 bg-black/80 text-sky-300 px-2.5 py-1 rounded-lg font-mono text-[9px] font-bold border border-sky-400/40 z-10">
+              <div className="absolute bottom-2.5 right-2.5 bg-black/80 text-sky-300 px-2 py-0.5 rounded-lg font-mono text-[8px] sm:text-[9px] font-bold border border-sky-400/40 z-10">
                 LIVE OPTICAL FEED
               </div>
 
@@ -276,22 +277,22 @@ export default function TrainerCard() {
               />
             </div>
 
-            {/* Floating Elemental Type Badges */}
+            {/* Floating Elemental Type Badges - safely bounded inside mobile container */}
             <motion.div
-              className="absolute -top-3 -right-3 px-3 py-1 rounded-full bg-card border border-border font-heading text-xs font-bold shadow-lg flex items-center gap-1.5 text-foreground"
-              animate={{ y: [0, -6, 0] }}
+              className="absolute -top-2.5 right-0 sm:-right-2 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-card border border-border font-heading text-[10px] sm:text-xs font-bold shadow-lg flex items-center gap-1.5 text-foreground z-20"
+              animate={{ y: [0, -4, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <PokeBallIcon type="ultra" size={16} />
+              <PokeBallIcon type="ultra" size={14} />
               <span>ELECTRIC / PSYCHIC</span>
             </motion.div>
 
             <motion.div
-              className="absolute -bottom-3 -left-3 px-3 py-1 rounded-full bg-card border border-border font-heading text-xs font-bold shadow-lg flex items-center gap-1.5 text-foreground"
-              animate={{ y: [0, 6, 0] }}
+              className="absolute -bottom-2.5 left-0 sm:-left-2 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-card border border-border font-heading text-[10px] sm:text-xs font-bold shadow-lg flex items-center gap-1.5 text-foreground z-20"
+              animate={{ y: [0, 4, 0] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
             >
-              <PokeBallIcon type="great" size={16} />
+              <PokeBallIcon type="great" size={14} />
               <span>FULL-STACK ARCHITECT</span>
             </motion.div>
           </div>

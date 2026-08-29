@@ -27,37 +27,37 @@ export default function PokedexFrame() {
   }
 
   return (
-    <header className="w-full pokedex-header-shell sticky top-0 z-40 transition-colors duration-300 select-none text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+    <header className="w-full pokedex-header-shell sticky top-0 z-40 transition-colors duration-300 select-none text-white pt-safe">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between gap-2">
         {/* Left: Classic Pokédex Sensor Lens & Status LEDs */}
-        <div className="flex items-center gap-3 sm:gap-4">
+        <div className="flex items-center gap-2 sm:gap-4 shrink-0">
           {/* Big Circular Sensor Lens Shell */}
           <div
-            className="brand-lens-shell w-11 h-11 sm:w-12 sm:h-12 p-1 flex items-center justify-center cursor-pointer relative"
+            className="brand-lens-shell w-9 h-9 sm:w-11 sm:h-11 p-0.5 sm:p-1 flex items-center justify-center cursor-pointer relative shrink-0"
             onClick={toggleSound}
             title="Pokédex Optical Sensor (Click to toggle sound)"
           >
             <div className="brand-lens w-full h-full relative overflow-hidden flex items-center justify-center">
               {/* White Glint Highlight */}
-              <div className="w-3 h-3 rounded-full bg-white opacity-90 absolute top-1 left-1 shadow-sm" />
-              <div className="w-1.5 h-1.5 rounded-full bg-sky-200 opacity-80 absolute bottom-1.5 right-1.5" />
+              <div className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-white opacity-90 absolute top-0.5 sm:top-1 left-0.5 sm:left-1 shadow-sm" />
+              <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-sky-200 opacity-80 absolute bottom-1 right-1" />
             </div>
             {/* Pulsing ring */}
-            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-sky-400 animate-ping opacity-75" />
+            <span className="absolute -top-0.5 -right-0.5 w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-sky-400 animate-ping opacity-75" />
           </div>
 
           {/* 3 mini status LEDs */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <div
-              className="w-3 h-3 rounded-full bg-[#ff3b30] border border-black/40 shadow-[0_0_8px_#ff3b30] animate-pulse"
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#ff3b30] border border-black/40 shadow-[0_0_8px_#ff3b30] animate-pulse"
               title="Power: Active"
             />
             <div
-              className="w-3 h-3 rounded-full bg-[#fc0] border border-black/40 shadow-[0_0_8px_#fc0]"
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#fc0] border border-black/40 shadow-[0_0_8px_#fc0]"
               title="Sync: Connected"
             />
             <div
-              className="w-3 h-3 rounded-full bg-[#2aff7c] border border-black/40 shadow-[0_0_8px_#2aff7c] animate-pulse"
+              className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#2aff7c] border border-black/40 shadow-[0_0_8px_#2aff7c] animate-pulse"
               title="Trainer Online"
             />
           </div>
@@ -82,11 +82,11 @@ export default function PokedexFrame() {
         </div>
 
         {/* Right: Controls & Battery Indicator */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           {/* Sound FX Toggle Button */}
           <button
             onClick={toggleSound}
-            className={`px-3 py-1 rounded-lg font-heading text-xs font-bold flex items-center gap-1.5 transition-all border cursor-pointer ${
+            className={`px-2.5 sm:px-3 py-1.5 rounded-lg font-heading text-xs font-bold flex items-center gap-1.5 transition-all border cursor-pointer min-h-[36px] ${
               soundOn
                 ? 'bg-amber-400/25 border-amber-300 text-amber-200 shadow-[0_0_12px_rgba(251,191,36,0.5)]'
                 : 'bg-black/30 border-white/20 text-white/80 hover:text-white'
@@ -99,12 +99,12 @@ export default function PokedexFrame() {
           </button>
 
           {/* Theme Toggle (Day / Night) */}
-          <div className="bg-black/30 rounded-lg p-0.5 border border-white/20">
+          <div className="bg-black/30 rounded-lg p-0.5 border border-white/20 flex items-center justify-center min-h-[36px] min-w-[36px]">
             <ThemeToggle onToggle={() => soundFx.playBlip()} />
           </div>
 
           {/* Battery Indicator with Green Glow */}
-          <div className="hidden sm:flex items-center gap-1.5 bg-black/40 border border-white/20 rounded-md px-2.5 py-1 text-white font-mono text-[11px]">
+          <div className="hidden sm:flex items-center gap-1.5 bg-black/40 border border-white/20 rounded-md px-2.5 py-1 text-white font-mono text-[11px] min-h-[36px]">
             <div className="w-2 h-2 rounded-full bg-[#00ff66] shadow-[0_0_6px_#00ff66]" />
             <span className="text-emerald-300 font-bold">100%</span>
           </div>

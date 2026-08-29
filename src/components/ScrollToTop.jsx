@@ -34,7 +34,7 @@ export default function ScrollToTop({ lenisRef }) {
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full shadow-2xl overflow-hidden cursor-pointer flex items-center justify-center group"
+          className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 pb-safe pr-safe z-40 w-12 h-12 rounded-full shadow-2xl overflow-hidden cursor-pointer flex items-center justify-center group touch-manipulation"
           aria-label="Scroll to top of Pokédex"
           title="Return to top"
         >

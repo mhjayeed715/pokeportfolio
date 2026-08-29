@@ -30,6 +30,13 @@ export default function TypeBadge({
         }
       }}
       onMouseLeave={() => setHovered(false)}
+      onClick={(e) => {
+        if (showTooltip && matchup) {
+          e.stopPropagation()
+          soundFx.playBlip()
+          setHovered(!hovered)
+        }
+      }}
     >
       {/* Type Pill */}
       <span
@@ -53,7 +60,7 @@ export default function TypeBadge({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.95 }}
             transition={{ duration: 0.15 }}
-            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2.5 z-50 w-64 sm:w-72 pointer-events-none"
+            className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2.5 z-50 w-64 sm:w-72 max-w-[calc(100vw-32px)] pointer-events-none"
           >
             <div
               className="bg-[#0b0f19] text-white border-2 rounded-2xl p-3 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-xl text-left font-sans space-y-1.5"
@@ -63,9 +70,9 @@ export default function TypeBadge({
               <div className="flex items-center justify-between border-b border-slate-700/80 pb-1.5">
                 <div className="flex items-center gap-1.5 font-heading font-bold text-xs" style={{ color: typeConfig.text }}>
                   <span>{typeConfig.symbol}</span>
-                  <span>{techName || typeConfig.name} // {typeConfig.label}</span>
+                  <span className="truncate">{techName || typeConfig.name} // {typeConfig.label}</span>
                 </div>
-                <span className="font-pixel text-[8px] text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/30">
+                <span className="font-pixel text-[8px] text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded border border-amber-400/30 shrink-0">
                   MATCHUP
                 </span>
               </div>
